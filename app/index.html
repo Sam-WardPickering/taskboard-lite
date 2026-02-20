@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TaskBoard Lite</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="topbar" data-testid="topbar">
+    <div class="brand">
+      <span class="logo" aria-hidden="true">☑</span>
+      <h1>TaskBoard Lite</h1>
+    </div>
+
+    <div class="topbar-actions">
+      <button class="ghost" data-testid="theme-toggle" aria-label="Toggle theme">Theme</button>
+      <div class="user-pill" data-testid="user-pill" hidden>
+        <span data-testid="user-name"></span>
+        <button class="ghost" data-testid="logout">Logout</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- LOGIN -->
+    <section class="card" data-testid="login-card">
+      <h2>Login</h2>
+      <p class="muted">Fake auth for testing purposes.</p>
+
+      <form data-testid="login-form" autocomplete="off" novalidate>
+        <label>
+          Email
+          <input data-testid="login-email" type="email" placeholder="sam@example.com" required />
+        </label>
+
+        <label>
+          Password
+          <input data-testid="login-password" type="password" placeholder="••••••••" minlength="6" required />
+        </label>
+
+        <div class="row">
+          <button data-testid="login-submit" type="submit">Sign in</button>
+          <span class="error" data-testid="login-error" role="alert" hidden></span>
+        </div>
+      </form>
+    </section>
+
+    <!-- APP -->
+    <section class="card" data-testid="app-card" hidden>
+      <div class="toolbar">
+        <div class="tabs" role="tablist" aria-label="Task filters">
+          <button data-testid="filter-all" class="tab is-active" type="button" role="tab" aria-selected="true">All</button>
+          <button data-testid="filter-active" class="tab" type="button" role="tab">Active</button>
+          <button data-testid="filter-completed" class="tab" type="button" role="tab">Completed</button>
+        </div>
+
+        <div class="toolbar-right">
+          <input data-testid="search" class="search" type="search" placeholder="Search tasks..." />
+          <select data-testid="sort" class="select" aria-label="Sort tasks">
+            <option value="created_desc">Newest</option>
+            <option value="due_asc">Due date (soonest)</option>
+            <option value="priority_desc">Priority (high)</option>
+          </select>
+        </div>
+      </div>
+
+      <form data-testid="create-form" class="create" autocomplete="off" novalidate>
+        <input data-testid="create-title" type="text" placeholder="Add a task..." maxlength="60" required />
+        <input data-testid="create-due" type="date" />
+        <select data-testid="create-priority" class="select">
+          <option value="low">Low</option>
+          <option value="med" selected>Medium</option>
+          <option value="high">High</option>
+        </select>
+        <button data-testid="create-submit" type="submit">Add</button>
+        <span class="error" data-testid="create-error" role="alert" hidden></span>
+      </form>
+
+      <div class="meta">
+        <div data-testid="counter" class="counter">0 active</div>
+        <div class="meta-actions">
+          <button class="ghost" data-testid="bulk-complete">Mark all complete</button>
+          <button class="ghost" data-testid="clear-completed">Clear completed</button>
+        </div>
+      </div>
+
+      <div class="loading" data-testid="loading" hidden>
+        <div class="spinner" aria-hidden="true"></div>
+        <span>Loading…</span>
+      </div>
+
+      <ul data-testid="task-list" class="list" aria-label="Tasks"></ul>
+
+      <div class="empty" data-testid="empty" hidden>
+        <p>No tasks match your filters.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- EDIT MODAL -->
+  <div class="modal-backdrop" data-testid="edit-backdrop" hidden></div>
+  <section class="modal" data-testid="edit-modal" role="dialog" aria-modal="true" aria-label="Edit task" hidden>
+    <h3>Edit task</h3>
+
+    <form data-testid="edit-form" autocomplete="off" novalidate>
+      <input data-testid="edit-title" type="text" maxlength="60" required />
+      <input data-testid="edit-due" type="date" />
+      <select data-testid="edit-priority" class="select">
+        <option value="low">Low</option>
+        <option value="med">Medium</option>
+        <option value="high">High</option>
+      </select>
+
+      <label class="checkbox">
+        <input data-testid="edit-completed" type="checkbox" />
+        Completed
+      </label>
+
+      <div class="row">
+        <button data-testid="edit-save" type="submit">Save</button>
+        <button data-testid="edit-cancel" type="button" class="ghost">Cancel</button>
+        <span class="error" data-testid="edit-error" role="alert" hidden></span>
+      </div>
+    </form>
+  </section>
+
+  <!-- TOASTS -->
+  <div class="toasts" data-testid="toasts" aria-live="polite" aria-relevant="additions"></div>
+
+  <script src="./app.js"></script>
+</body>
+</html>
