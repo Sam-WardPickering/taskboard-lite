@@ -107,6 +107,17 @@ function bindLogin() {
   els.logout.addEventListener('click', () => {
     localStorage.removeItem(STORAGE.session);
     state.user = null;
+
+    // Hard reset UI-related state (optional but professional)
+    state.filter = 'all';
+    state.search = '';
+    state.sort = 'created_desc';
+    els.search.value = '';
+    els.sort.value = 'created_desc';
+
+    // Clear stale username immediately
+    els.userName.textContent = '';
+
     toast('Signed out', 'Session cleared', 'ok');
     render();
   });
@@ -229,14 +240,18 @@ function setFilter(next) {
 }
 
 function render() {
-  const authed = !!state.user;
+  const authed = Boolean(state.user);
 
+  // Always set visibility explicitly
   els.loginCard.hidden = authed;
   els.appCard.hidden = !authed;
   els.userPill.hidden = !authed;
+  els.logout.hidden = !authed;
 
-  if (authed) els.userName.textContent = state.user.name;
+  // Always set/clear the username explicitly
+  els.userName.textContent = authed ? state.user.name : '';
 
+  // Only render list when authed
   if (authed) renderList();
 }
 
