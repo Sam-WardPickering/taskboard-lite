@@ -13,6 +13,6 @@ export async function gotoApp(page) {
     // Only wait if it appears; avoid strict dependency on spinner always existing.
     if (await spinner.isVisible().catch(() => false)) {
         await expect(spinner).toBeHidden();
-    }
+    };
 
 };
