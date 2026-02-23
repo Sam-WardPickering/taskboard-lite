@@ -10,7 +10,7 @@ const STORAGE_KEYS = [
 
 /**
  * Base test that enforces deterministic localStorage state for every test.
- * All specs must imort { test, expect } from this file (not @playwright/test).
+ * All specs must import { test, expect } from this file (not @playwright/test).
  */
 export const test = base.extend({
     page: async ({ page }, use) => {
