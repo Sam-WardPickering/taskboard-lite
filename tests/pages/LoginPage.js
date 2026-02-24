@@ -12,4 +12,18 @@ export class LoginPage {
         this.signInButton = page.getByTestId('login-submit');
         this.signInError = page.getByTestId('login-error');
     }
+
+    async login(email, password) {
+        await this.emailInput.fill(email);
+        await this.passwordInput.fill(password);
+        await this.signInButton.click();
+    }
+
+    async getErrorText() {
+        if(await this.signInError.isVisible()) {
+            const text = await this.signInError.textContent();
+            return text?.trim() ?? '';
+        }
+        return null;
+    }
 };
