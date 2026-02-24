@@ -20,10 +20,10 @@ export class LoginPage {
     }
 
     async getErrorText() {
-        if(await this.signInError.isVisible()) {
+        if (await this.signInError.isVisible()) {
             const text = await this.signInError.textContent();
             return text?.trim() ?? '';
         }
         return null;
     }
-};
+}
