@@ -4,8 +4,8 @@ import { LoginPage } from '../../pages/LoginPage.js';
 
 test('loads login screen', async ({ page }) => {
     await gotoApp(page);
-
-    await expect(page.getByTestId('login-card')).toBeVisible();
+    const login = new LoginPage(page);
+    await expect(login.card).toBeVisible();
 });
 
 
