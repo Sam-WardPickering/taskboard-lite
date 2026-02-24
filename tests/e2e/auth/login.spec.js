@@ -11,5 +11,8 @@ test.describe('Login validation', () => {
         const login = new LoginPage(page);
 
         await login.login(email, password);
+
+        await expect(login.signInError).toHaveText('Enter a valid email.');
+        await expect(page.getByTestId('app-card')).not.toBeVisible();
     })
 });
