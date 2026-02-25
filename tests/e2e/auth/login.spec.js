@@ -29,5 +29,16 @@ test.describe('Login validation', () => {
         await expect(page.getByTestId('app-card')).not.toBeVisible();
     });
 
-  
+    test('shows error for invalid credentials', async ({ page }) => {
+        const email = 'fail@test.com';
+        const password = 'password123';
+
+        await gotoApp(page);
+        const login = new LoginPage(page);
+
+        login.login(email, password);
+
+        await expect(login.signInError).toHaveText('Invalid credentials.');
+        await expect(page.getByTestId('app-card')).not.toBeVisible();
+    });
 });
