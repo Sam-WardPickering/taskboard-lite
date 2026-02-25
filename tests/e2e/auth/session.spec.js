@@ -9,7 +9,7 @@ test.describe('Session', () => {
         const expectedUsername = email.split('@')[0];
 
         await gotoApp(page);
-        login = new LoginPage(page);
+        const login = new LoginPage(page);
 
         login.login(email, password);
 
