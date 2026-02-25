@@ -13,9 +13,8 @@ test.describe('Login validation', () => {
         await login.login(email, password);
 
         await expect(login.signInError).toHaveText('Enter a valid email.');
-        await expect(page.getByTestId('app-card')).not.toBeVisible();
-
         await expect(login.card).toBeVisible();
+        await expect(page.getByTestId('app-card')).not.toBeVisible();
     });
 
     test('shows error for incorrect password length', async ({ page }) => {
@@ -28,9 +27,8 @@ test.describe('Login validation', () => {
         await login.login(email, password);
 
         await expect(login.signInError).toHaveText('Password must be at least 6 characters.');
-        await expect(page.getByTestId('app-card')).not.toBeVisible();
-
         await expect(login.card).toBeVisible();
+        await expect(page.getByTestId('app-card')).not.toBeVisible();
     });
 
     test('shows error for invalid credentials', async ({ page }) => {
@@ -43,8 +41,7 @@ test.describe('Login validation', () => {
         await login.login(email, password);
 
         await expect(login.signInError).toHaveText('Invalid credentials.');
-        await expect(page.getByTestId('app-card')).not.toBeVisible();
-
         await expect(login.card).toBeVisible();
+        await expect(page.getByTestId('app-card')).not.toBeVisible();
     });
 });
