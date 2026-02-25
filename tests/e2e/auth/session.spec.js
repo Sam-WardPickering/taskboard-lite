@@ -11,7 +11,7 @@ test.describe('Session', () => {
         await gotoApp(page);
         const login = new LoginPage(page);
 
-        login.login(email, password);
+        await login.login(email, password);
 
         await expect(page.getByTestId('app-card')).toBeVisible();
         await expect(page.getByTestId('user-name')).toHaveText(expectedUsername);

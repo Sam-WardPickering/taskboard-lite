@@ -14,11 +14,20 @@ const STORAGE_KEYS = [
  */
 export const test = base.extend({
     page: async ({ page }, use) => {
-        // Runs before any page scripts execute.
         await page.addInitScript(({ keys }) => {
+            // This script runs on every document load (goto/reload).
+            // Use sessionStorage as a per-tab flag so we only reset once, 
+            // This allows tests to verify persistence across reloads.
+            const flag = '__tbl_pw_storage_reset_done__';
+
+            if (sessionStorage.getItem(flag) === '1') return;
+
             for (const k of keys) localStorage.removeItem(k);
+
             // Force deterministic performance (disable artificial latency).
             localStorage.setItem('tbl_net_delay_ms', '0');
+
+            sessionStorage.setItem(flag, '1');
         }, { keys: STORAGE_KEYS });
 
         await use(page);
