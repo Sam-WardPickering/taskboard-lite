@@ -9,6 +9,10 @@ export class TaskBoardPage {
         this.card = page.getByTestId('app-card');
         this.logoutButton = page.getByTestId('logout');
         this.userName = page.getByTestId('user-name');
+        this.taskInput = page.getByTestId('create-title');
+        this.taskDueDate = page.getByTestId('create-due');
+        this.taskPriority = page.getByTestId('create-priority');
+        this.addTask = page.getByTestId('create-submit');
     }
 
     async logout() {
