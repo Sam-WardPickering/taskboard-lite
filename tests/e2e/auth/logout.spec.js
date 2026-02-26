@@ -1,12 +1,13 @@
-import { test, expect } from '../../fixtures/baseTest';
-import { gotoApp } from '../../helpers/navigation';
-import { LoginPage } from '../../pages/LoginPage';
-import { TaskBoardPage } from '../../pages/TaskBoardPage';
+import { test, expect } from '../../fixtures/baseTest.js';
+import { gotoApp } from '../../helpers/navigation.js';
+import { LoginPage } from '../../pages/LoginPage.js';
+import { TaskBoardPage } from '../../pages/TaskBoardPage.js';
 
-test.describe('Logout validation', () => {
+test.describe('Logout', () => {
     test('user is correctrly logged out', async ({ page }) => {
         const email = 'sam@test.com';
         const password = 'password123';
+        const expectedUsername = email.split('@')[0];
 
         await gotoApp(page);
 
@@ -16,15 +17,18 @@ test.describe('Logout validation', () => {
         const taskBoard = new TaskBoardPage(page);
 
         await expect(taskBoard.card).toBeVisible();
+        await expect(taskBoard.userName).toContainText(expectedUsername);
 
         await taskBoard.logout();
 
         await expect(login.card).toBeVisible();
         await expect(taskBoard.card).not.toBeVisible();
+        await expect(taskBoard.userName).not.toBeVisible();
 
         await page.reload();
 
         await expect(login.card).toBeVisible();
         await expect(taskBoard.card).not.toBeVisible();
+        await expect(taskBoard.userName).not.toBeVisible();
     });
 });
