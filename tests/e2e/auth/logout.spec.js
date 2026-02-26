@@ -4,7 +4,7 @@ import { LoginPage } from '../../pages/LoginPage.js';
 import { TaskBoardPage } from '../../pages/TaskBoardPage.js';
 
 test.describe('Logout', () => {
-    test('user is correctrly logged out', async ({ page }) => {
+    test('user is correctly logged out', async ({ page }) => {
         const email = 'sam@test.com';
         const password = 'password123';
         const expectedUsername = email.split('@')[0];
@@ -17,7 +17,7 @@ test.describe('Logout', () => {
         const taskBoard = new TaskBoardPage(page);
 
         await expect(taskBoard.card).toBeVisible();
-        await expect(taskBoard.userName).toContainText(expectedUsername);
+        await expect(taskBoard.userName).toHaveText(expectedUsername);
 
         await taskBoard.logout();
 
