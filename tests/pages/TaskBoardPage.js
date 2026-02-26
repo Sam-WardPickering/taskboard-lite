@@ -9,13 +9,20 @@ export class TaskBoardPage {
         this.card = page.getByTestId('app-card');
         this.logoutButton = page.getByTestId('logout');
         this.userName = page.getByTestId('user-name');
-        this.taskInput = page.getByTestId('create-title');
-        this.taskDueDate = page.getByTestId('create-due');
-        this.taskPriority = page.getByTestId('create-priority');
-        this.addTask = page.getByTestId('create-submit');
+        this.titleInput = page.getByTestId('create-title');
+        this.dueDateInput = page.getByTestId('create-due');
+        this.prioritySelect = page.getByTestId('create-priority');
+        this.addTaskButton = page.getByTestId('create-submit');
     }
 
     async logout() {
         await this.logoutButton.click();
     }
+
+    /**
+     * @param {{title: string, due?: string, priority?: 'Low'|'Medium'|'High' }} task
+     */
+    async createTask({ title, due, priority }) {
+        
+    };
 }
