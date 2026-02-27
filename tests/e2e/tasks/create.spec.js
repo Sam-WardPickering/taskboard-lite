@@ -4,12 +4,12 @@ import { LoginPage } from '../../pages/LoginPage.js';
 import { TaskBoardPage } from '../../pages/TaskBoardPage.js';
 import { todayISO } from '../../helpers/date.js';
 
-test.describe('Create', () => {
-    test.only('create a task (happy path)', async ({ page }) => {
-        const email = 'sam@test.com';
-        const password = 'password123';
-        const expectedUser = email.split('@')[0];
+test.describe('Tasks - Create', () => {
+    const email = 'sam@test.com';
+    const password = 'password123';
+    const expectedUser = email.split('@')[0];
 
+    test('create a task (happy path)', async ({ page }) => {
         const title = `Task ${Date.now()}`;
         const due = todayISO();
         const priority = 'high';
@@ -27,5 +27,33 @@ test.describe('Create', () => {
         await taskBoard.createTask({ title, due, priority });
 
         await expect(taskBoard.taskItem(title)).toBeVisible();
+    });
+    
+    test('persists after reload', async ({ page }) => {
+        const title = `Task ${Date.now()}`;
+        const due = todayISO();
+        const priority = 'med';
+
+        await gotoApp(page);
+
+        const login = new LoginPage(page);
+        const taskBoard = new TaskBoardPage(page);
+        
+        await login.login(email, password);
+
+        await expect(taskBoard.card).toBeVisible();
+        await expect(taskBoard.userName).toHaveText(expectedUser);
+
+        await taskBoard.createTask({ title, due, priority });
+
+        await expect(taskBoard.taskItem(title)).toBeVisible();
+
+        page.reload();
+
+        await expect(taskBoard.taskItem(title)).toBeVisible();
+
+        await expect(taskBoard.card).toBeVisible();
+        await expect(taskBoard.userName).toHaveText(expectedUser);
+
     });
 });
