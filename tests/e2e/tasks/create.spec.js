@@ -2,6 +2,7 @@ import { test, expect } from '../../fixtures/baseTest.js';
 import { gotoApp } from '../../helpers/navigation.js';
 import { LoginPage } from '../../pages/LoginPage.js';
 import { TaskBoardPage } from '../../pages/TaskBoardPage';
+import { todayISO } from '../../helpers/date.js';
 
 test.describe('Create', () => {
     test('create a task (happy path)', async ({ page }) => {
@@ -10,7 +11,7 @@ test.describe('Create', () => {
         const expectedUser = email.split('@')[0];
 
         const taskTitle = `Task ${Date.now()}`;
-        const taskDue = new Date().toISOString().split('T')[0];
+        const taskDue = todayISO();
         const taskPriority = 'high';
 
         await gotoApp(page);
@@ -23,10 +24,12 @@ test.describe('Create', () => {
         await expect(taskBoard.card).toBeVisible();
         await expect(taskBoard.userName).toHaveText(expectedUser);
 
-        taskBoard.createTask({
+        await taskBoard.createTask({
             taskTitle,
             taskDue,
             taskPriority
         });
+
+        await expect(taskBoard.taskItem(taskTitle)).toBeVisible();
     });
 });
