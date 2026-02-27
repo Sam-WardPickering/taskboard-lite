@@ -29,5 +29,9 @@ export class TaskBoardPage {
         if (priority) await this.prioritySelect.fill(priority);
 
         await this.addTaskButton.click();
-    };
+    }
+
+    taskItem(title) {
+        return this.page.getByTestId('todo-item').filter({ hasText: title });
+    }
 }
