@@ -20,14 +20,13 @@ export class TaskBoardPage {
     }
 
     /**
-     * @param {{title: string, due?: string, priority?: 'Low'|'Medium'|'High' }} task
+     * @param {{title: string, due?: string, priority?: 'low'|'medium'|'high' }} task
      */
     async createTask({ title, due, priority }) {
         await this.titleInput.fill(title);
 
         if (due) await this.dueDateInput.fill(due);
-
-        if (priority) await this.prioritySelect.fill(due);
+        if (priority) await this.prioritySelect.fill(priority);
 
         await this.addTaskButton.click();
     };
