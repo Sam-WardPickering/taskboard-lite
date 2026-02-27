@@ -29,7 +29,7 @@ test.describe('Tasks - Create', () => {
         await expect(taskBoard.taskItem(title)).toBeVisible();
     });
 
-    test('persists after reload', async ({ page }) => {
+    test('task and session persist after reload', async ({ page }) => {
         const title = `Task ${Date.now()}`;
         const due = todayISO();
         const priority = 'med';
