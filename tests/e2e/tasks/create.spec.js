@@ -5,7 +5,7 @@ import { TaskBoardPage } from '../../pages/TaskBoardPage.js';
 import { todayISO } from '../../helpers/date.js';
 
 test.describe('Create', () => {
-    test('create a task (happy path)', async ({ page }) => {
+    test.only('create a task (happy path)', async ({ page }) => {
         const email = 'sam@test.com';
         const password = 'password123';
         const expectedUser = email.split('@')[0];
@@ -26,6 +26,6 @@ test.describe('Create', () => {
 
         await taskBoard.createTask({ title, due, priority });
 
-        await expect(taskBoard.taskItem(taskTitle)).toBeVisible();
+        await expect(taskBoard.taskItem(title)).toBeVisible();
     });
 });
