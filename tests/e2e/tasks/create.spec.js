@@ -28,7 +28,7 @@ test.describe('Tasks - Create', () => {
 
         await expect(taskBoard.taskItem(title)).toBeVisible();
     });
-    
+
     test('persists after reload', async ({ page }) => {
         const title = `Task ${Date.now()}`;
         const due = todayISO();
@@ -48,12 +48,11 @@ test.describe('Tasks - Create', () => {
 
         await expect(taskBoard.taskItem(title)).toBeVisible();
 
-        page.reload();
-
-        await expect(taskBoard.taskItem(title)).toBeVisible();
+        await page.reload();
 
         await expect(taskBoard.card).toBeVisible();
         await expect(taskBoard.userName).toHaveText(expectedUser);
+        await expect(taskBoard.taskItem(title)).toBeVisible();
 
     });
 });
