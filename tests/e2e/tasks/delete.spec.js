@@ -1,8 +1,8 @@
 import { test, expect } from '../../fixtures/baseTest.js';
 import { gotoApp } from '../../helpers/navigation.js';
 import { LoginPage } from '../../pages/LoginPage.js';
-import { TaskBoardPage } from '../../pages/TaskBoardPage';
-import { todayISO } from '../../helpers/date';
+import { TaskBoardPage } from '../../pages/TaskBoardPage.js';
+import { todayISO } from '../../helpers/date.js';
 
 test.describe('Delete', () => {
     const email = 'sam@test.com';
@@ -14,12 +14,12 @@ test.describe('Delete', () => {
         const due = todayISO();
         const priority = 'high';
 
+        await gotoApp(page);
+
         const login = new LoginPage(page);
         const taskBoard = new TaskBoardPage(page);
 
-        await gotoApp(page);
-
-        login.login(email, password);
+        await login.login(email, password);
 
         await expect(taskBoard.card).toBeVisible();
         await expect(taskBoard.userName).toHaveText(expectedUser);
@@ -30,6 +30,6 @@ test.describe('Delete', () => {
 
         await taskBoard.deleteTask(title);
 
-        await expect(taskBoard.taskItem(title)).not.toBeVisible();
+        await expect(taskBoard.taskItem(title)).toHaveCount(0);
     });
 });
