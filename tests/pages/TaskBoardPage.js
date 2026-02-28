@@ -34,4 +34,9 @@ export class TaskBoardPage {
     taskItem(title) {
         return this.page.getByTestId('todo-item').filter({ hasText: title });
     }
+
+    async deleteTask(title) {
+        const deleteTask = this.taskItem(title);
+        await deleteTask.getByTestId('delete').click();
+    }
 }
