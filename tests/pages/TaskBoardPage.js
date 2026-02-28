@@ -36,7 +36,7 @@ export class TaskBoardPage {
     }
 
     async deleteTask(title) {
-        const deleteTask = this.taskItem(title);
-        await deleteTask.getByTestId('delete').click();
+        const row = this.taskItem(title);
+        await row.getByTestId('delete').click();
     }
 }
