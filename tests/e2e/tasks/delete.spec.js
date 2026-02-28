@@ -27,5 +27,9 @@ test.describe('Delete', () => {
         await taskBoard.createTask({ title, due, priority });
 
         await expect(taskBoard.taskItem(title)).toBeVisible();
+
+        await taskBoard.deleteTask(title);
+
+        await expect(taskBoard.taskItem(title)).not.toBeVisible();
     });
 });
