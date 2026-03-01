@@ -4,7 +4,7 @@ import { LoginPage } from '../../pages/LoginPage.js';
 import { TaskBoardPage } from '../../pages/TaskBoardPage.js';
 import { todayISO } from '../../helpers/date.js';
 
-test.describe('Delete', () => {
+test.describe('Tasks - Delete', () => {
     const email = 'sam@test.com';
     const password = 'password123';
     const expectedUser = email.split('@')[0];
