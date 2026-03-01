@@ -39,4 +39,14 @@ export class TaskBoardPage {
         const row = this.taskItem(title);
         await row.getByTestId('delete').click();
     }
+
+    async completeTask(title) {
+        const row = this.taskItem(title);
+        await row.getByTestId('todo-item-toggle').click();
+    }
+
+    async isTaskCompleted(title) {
+        const row = this.taskItem(title);
+        return await row.getByTestId('todo-item-toggle').isChecked();
+    }
 }
