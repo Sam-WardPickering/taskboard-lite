@@ -32,4 +32,35 @@ test.describe('Tasks - Delete', () => {
 
         await expect(taskBoard.taskItem(title)).toHaveCount(0);
     });
+
+    test('task deletion persists after reload', async ({ page }) => {
+        const title = `Task ${Date.now()}`;
+        const due = todayISO();
+        const priority = 'med';
+
+        await gotoApp(page);
+
+        const login = new LoginPage(page);
+        const taskBoard = new TaskBoardPage(page);
+
+        await login.login(email, password);
+
+        await expect(taskBoard.card).toBeVisible();
+        await expect(taskBoard.userName).toHaveText(expectedUser);
+
+        await taskBoard.createTask({ title, due, priority });
+
+        await expect(taskBoard.taskItem(title)).toBeVisible();
+
+        await taskBoard.deleteTask(title);
+
+        await expect(taskBoard.taskItem(title)).toHaveCount(0);
+
+        await page.reload();
+
+        await expect(taskBoard.card).toBeVisible();
+        await expect(taskBoard.taskItem(title)).toHaveCount(0);
+        await expect(taskBoard.userName).toHaveText(expectedUser);
+
+    });
 });
