@@ -40,7 +40,7 @@ export class TaskBoardPage {
         await row.getByTestId('delete').click();
     }
 
-    async completeTask(title) {
+    async toggleTask(title) {
         const row = this.taskItem(title);
         await row.getByTestId('todo-item-toggle').click();
     }
