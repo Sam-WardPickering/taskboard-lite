@@ -59,8 +59,8 @@ test.describe('Tasks - Delete', () => {
         await page.reload();
 
         await expect(taskBoard.card).toBeVisible();
-        await expect(taskBoard.taskItem(title)).toHaveCount(0);
         await expect(taskBoard.userName).toHaveText(expectedUser);
+        await expect(taskBoard.taskItem(title)).toHaveCount(0);
 
     });
 });
