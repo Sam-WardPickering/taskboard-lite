@@ -13,11 +13,6 @@ export class TaskBoardPage {
         this.dueDateInput = page.getByTestId('create-due');
         this.prioritySelect = page.getByTestId('create-priority');
         this.addTaskButton = page.getByTestId('create-submit');
-        this.editTitleInput = page.getByTestId('edit-title');
-        this.editDueDateInput = page.getByTestId('edit-due');
-        this.editPrioritySelect = page.getByTestId('edit-priority');
-        this.editCompleted = page.getByTestId('edit-completed');
-        this.saveEditButton = page.getByTestId('edit-save');
     }
 
     async logout() {
@@ -72,6 +67,34 @@ export class TaskBoardPage {
         if (priority) await this.prioritySelect.selectOption(priority);
 
         await this.addTaskButton.click();
+    }
+
+    editForm() {
+        return this.page.getByTestId('edit-form');
+    }
+
+    editTitleInput() {
+        return this.editForm().getByTestId('edit-title');
+    }
+
+    editDueDateInput() {
+        return this.editForm().getByTestId('edit-due');
+    }
+
+    editPrioritySelect() {
+        return this.editForm().getByTestId('edit-priority');
+    }
+
+    editCompletedCheckbox() {
+        return this.editForm().getByTestId('edit-completed');
+    }
+
+    saveEditButton() {
+        return this.editForm().getByTestId('edit-save');
+    }
+
+    cancelEditButton() {
+        return this.editForm.getByTestId('edit-cancel');
     }
     
 }
