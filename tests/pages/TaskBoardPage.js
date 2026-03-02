@@ -53,20 +53,8 @@ export class TaskBoardPage {
         return this.taskItem(title).getByTestId('edit');
     }
 
-    openEdit(title) {
+    async openEdit(title) {
         this.taskEditButton(title).click();
-    }
-
-    /**
-     * @param {{title: string, due?: string, priority?: 'low'|'med'|'high' }} task
-     */
-    async editTask({ title, due, priority }) {
-        await this.titleInput.fill(title);
-
-        if (due) await this.dueDateInput.fill(due);
-        if (priority) await this.prioritySelect.selectOption(priority);
-
-        await this.addTaskButton.click();
     }
 
     editForm() {
