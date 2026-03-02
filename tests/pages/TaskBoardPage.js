@@ -112,6 +112,11 @@ export class TaskBoardPage {
     async editTask(title, updates) {
         this.openEdit(title);
 
+        if (updates.title !== undefined) await this.editTitleInput().fill(updates.title);
+        if (updates.due !== undefined) await this.editDueDateInput().fill(updates.due);
+        if (updates.priority !== undefined) await this.editPrioritySelect().selectOption(updates.priority);
+
+        await this.saveEdit().click();
     }
     
 }
