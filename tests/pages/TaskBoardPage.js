@@ -54,7 +54,7 @@ export class TaskBoardPage {
     }
 
     async openEdit(title) {
-        this.taskEditButton(title).click();
+        await this.taskEditButton(title).click();
     }
 
     editForm() {
