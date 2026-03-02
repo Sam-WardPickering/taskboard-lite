@@ -95,7 +95,7 @@ export class TaskBoardPage {
 
     /**
      * @param {string} title
-     * @param {{ title?: string, due?: string, priority?: 'low'|'med'|'high', completed?: boolean }}
+     * @param {{ title?: string, due?: string, priority?: 'low'|'med'|'high', completed?: boolean }} updates
      */
     async editTask(title, updates) {
         await this.openEdit(title);
