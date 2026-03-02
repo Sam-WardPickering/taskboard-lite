@@ -116,6 +116,11 @@ export class TaskBoardPage {
         if (updates.due !== undefined) await this.editDueDateInput().fill(updates.due);
         if (updates.priority !== undefined) await this.editPrioritySelect().selectOption(updates.priority);
 
+        if (typeof updates.completed === 'boolean') {
+            const checkbox = this.editCompletedCheckbox();
+            await (updates.completed ? checkbox.check() : checkbox.uncheck());
+        }
+
         await this.saveEdit().click();
     }
     
