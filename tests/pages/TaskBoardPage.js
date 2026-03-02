@@ -53,7 +53,7 @@ export class TaskBoardPage {
         return this.taskItem(title).getByTestId('edit');
     }
 
-    opedEdit(title) {
+    openEdit(title) {
         this.taskEditButton(title).click();
     }
 
@@ -95,6 +95,23 @@ export class TaskBoardPage {
 
     cancelEditButton() {
         return this.editForm.getByTestId('edit-cancel');
+    }
+
+    async saveEdit() {
+        await this.saveEditButton().click();
+    }
+
+    async cancelEdit() {
+        await this.cancelEditButton().click();
+    }
+
+    /**
+     * @param {string} title
+     * @param {{ title?: string, due?: string, priority?: 'low'|'med'|'high', completed?: boolean }}
+     */
+    async editTask(title, updates) {
+        this.openEdit(title);
+
     }
     
 }
