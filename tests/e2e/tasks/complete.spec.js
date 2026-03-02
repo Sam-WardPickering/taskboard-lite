@@ -37,4 +37,35 @@ test.describe('Tasks - Complete', () => {
         await expect(taskBoard.taskCheckbox(title)).not.toBeChecked();
 
     });
+
+    test('completion persists after reload', async ({ page }) => {
+        const title = `Task ${Date.now()}`;
+        const due = todayISO();
+        const priority = 'med';
+
+        await gotoApp(page);
+
+        const login = new LoginPage(page);
+        const taskBoard = new TaskBoardPage(page);
+
+        await login.login(email, password);
+
+        await expect(taskBoard.card).toBeVisible();
+        await expect(taskBoard.userName).toHaveText(expectedUser);
+
+        await taskBoard.createTask({ title, due, priority });
+
+        await expect(taskBoard.taskItem(title)).toBeVisible();
+
+        // Complete task
+        await taskBoard.toggleTask(title);
+        await expect(taskBoard.taskCheckbox(title)).toBeChecked();
+
+        await page.reload();
+
+        await expect(taskBoard.card).toBeVisible();
+        await expect(taskBoard.userName).toHaveText(expectedUser);
+        await expect(taskBoard.taskItem(title)).toBeVisible();
+        await expect(taskBoard.taskCheckbox(title)).toBeChecked();
+    });
 });
