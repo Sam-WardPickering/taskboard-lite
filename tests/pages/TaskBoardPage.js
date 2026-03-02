@@ -82,7 +82,7 @@ export class TaskBoardPage {
     }
 
     cancelEditButton() {
-        return this.editForm.getByTestId('edit-cancel');
+        return this.editForm().getByTestId('edit-cancel');
     }
 
     async saveEdit() {
@@ -98,7 +98,7 @@ export class TaskBoardPage {
      * @param {{ title?: string, due?: string, priority?: 'low'|'med'|'high', completed?: boolean }}
      */
     async editTask(title, updates) {
-        this.openEdit(title);
+        await this.openEdit(title);
 
         if (updates.title !== undefined) await this.editTitleInput().fill(updates.title);
         if (updates.due !== undefined) await this.editDueDateInput().fill(updates.due);
@@ -109,7 +109,7 @@ export class TaskBoardPage {
             await (updates.completed ? checkbox.check() : checkbox.uncheck());
         }
 
-        await this.saveEdit().click();
+        await this.saveEdit();
     }
     
 }
