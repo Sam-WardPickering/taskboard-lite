@@ -45,7 +45,7 @@ export class TaskBoardPage {
         await row.getByTestId('todo-item-toggle').click();
     }
 
-   taskCheckbox(title) {
+    taskCheckbox(title) {
         return this.taskItem(title).getByTestId('todo-item-toggle');
     }
 
