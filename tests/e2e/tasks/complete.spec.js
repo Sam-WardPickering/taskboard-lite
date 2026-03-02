@@ -1,15 +1,15 @@
 import { test, expect } from '../../fixtures/baseTest.js';
-import { gotoApp, goToApp } from '../../helpers/navigation.js';
+import { gotoApp } from '../../helpers/navigation.js';
 import { todayISO } from '../../helpers/date.js';
 import { LoginPage } from '../../pages/LoginPage.js';
 import { TaskBoardPage } from '../../pages/TaskBoardPage.js';
 
-test.describe('Task - Complete', () => {
+test.describe('Tasks - Complete', () => {
     const email = 'sam@test.com';
     const password = 'password123';
     const expectedUser = email.split('@')[0];
 
-    test.only('complete a task (happy path)', async ({ page }) => {
+    test('complete a task (happy path)', async ({ page }) => {
         const title = `Task ${Date.now()}`;
         const due = todayISO();
         const priority = 'high';
@@ -30,13 +30,11 @@ test.describe('Task - Complete', () => {
 
         // Complete task
         await taskBoard.toggleTask(title);
-
-        expect(taskBoard.isTaskCompleted()).toBe(true);
+        await expect(taskBoard.taskCheckbox(title)).toBeChecked();
 
         // Undo completion
         await taskBoard.toggleTask(title);
-
-        expect(taskBoard.isTaskCompleted(title)).toBe(false);
+        await expect(taskBoard.taskCheckbox(title)).not.toBeChecked();
 
     });
 });

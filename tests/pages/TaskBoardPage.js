@@ -45,8 +45,7 @@ export class TaskBoardPage {
         await row.getByTestId('todo-item-toggle').click();
     }
 
-    async isTaskCompleted(title) {
-        const row = this.taskItem(title);
-        return await row.getByTestId('todo-item-toggle').isChecked();
+   taskCheckbox(title) {
+        return this.taskItem(title).getByTestId('todo-item-toggle');
     }
 }
