@@ -9,7 +9,7 @@ test.describe.only('Tasks - Edit', () => {
     const password = 'password123';
     const expectedUser = email.split('@')[0];
 
-    test('edit a task (happy path)', async ({ page }) => {
+    test('edit a task title (happy path)', async ({ page }) => {
         const id = Date.now();
         const title = `Task 1 - Created - ${id}`;
         const newTitle = `Task 1 - Edited - ${id}`;
