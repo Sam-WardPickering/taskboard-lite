@@ -10,10 +10,11 @@ test.describe.only('Tasks - Edit', () => {
     const expectedUser = email.split('@')[0];
 
     test('edit a task (happy path)', async ({ page }) => {
-        const title = `Task ${Date.now()}`;
+        const id = Date.now();
+        const title = `Task 1 - Created - ${id}`;
+        const newTitle = `Task 1 - Edited - ${id}`;
         const due = todayISO();
         const priority = 'high';
-        const newTitle = `Edited Title - ${title}`;
 
         await gotoApp(page);
 
