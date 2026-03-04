@@ -37,4 +37,7 @@ test.describe.only('Tasks - Edit', () => {
         await expect(taskBoard.taskItem(newTitle)).toBeVisible();
 
     });
+    test('cancel task edits', async ({ page }) => {
+        
+    })
 });
