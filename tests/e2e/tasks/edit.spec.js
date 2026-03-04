@@ -38,6 +38,15 @@ test.describe.only('Tasks - Edit', () => {
 
     });
     test('cancel task edits', async ({ page }) => {
-        
+        const id = Date.now();
+        const title = `Task 2 - Created - ${id}`;
+        const newTitle = `Task 2 - Edited - ${id}`;
+        const due = todayISO();
+        const priority = 'med';
+
+        await gotoApp(page);
+
+        const login = new LoginPage(page);
+        const taskBoard = new TaskBoardPage(page);
     })
 });
