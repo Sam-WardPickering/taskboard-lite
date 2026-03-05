@@ -68,5 +68,7 @@ test.describe.only('Tasks - Edit', () => {
         await expect(taskBoard.taskItem(newTitle)).toHaveCount(0);
         await expect(taskBoard.taskItem(title)).toBeVisible();
 
+        await expect(taskBoard.card).toBeVisible();
+
     })
 });
