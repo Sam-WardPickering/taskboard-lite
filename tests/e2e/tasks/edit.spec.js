@@ -48,5 +48,25 @@ test.describe.only('Tasks - Edit', () => {
 
         const login = new LoginPage(page);
         const taskBoard = new TaskBoardPage(page);
+
+        await login.login(email, password);
+
+        await expect(taskBoard.card).toBeVisible();
+        await expect(taskBoard.userName).toContainText(expectedUser);
+
+        await taskBoard.createTask({ title, due, priority });
+
+        await expect(taskBoard.taskItem(title)).toBeVisible();
+
+        await taskBoard.openEdit(title);
+
+        await expect(taskBoard.editForm()).toBeVisible();
+        await taskBoard.editTitleInput().fill(newTitle);
+        await taskBoard.cancelEdit();
+
+        await expect(taskBoard.editForm()).not.toBeVisible();
+        await expect(taskBoard.taskItem(newTitle)).toHaveCount(0);
+        await expect(taskBoard.taskItem(title)).toBeVisible();
+
     })
 });
