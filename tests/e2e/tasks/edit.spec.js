@@ -97,5 +97,19 @@ test.describe('Tasks - Edit', () => {
 
         await taskBoard.createTask({ title, due, priority });
         await expect(taskBoard.taskItem(title)).toBeVisible();
+
+        await taskBoard.editTask(title, { 
+            title: newTitle, 
+            due: newDue, 
+            priority: newPriority,
+            completed: true
+        });
+
+        await expect(taskBoard.taskItem(newTitle)).toBeVisible();
+        await expect(taskBoard.taskDueBadge(newTitle)).toHaveText(newDue);
+        await expect(taskBoard.taskPriorityBadge(newTitle)).toHaveText(newPriority);
+        await expect(taskBoard.taskCheckbox(newTitle)).toBeChecked();
+
+        await expect(taskBoard.taskItem(title)).toHaveCount(0);
     });
 });
