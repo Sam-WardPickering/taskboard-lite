@@ -11,8 +11,10 @@ test.describe('Tasks - Edit', () => {
 
     test('edit a task title (happy path)', async ({ page }) => {
         const id = Date.now();
+
         const title = `Task 1 - Created - ${id}`;
         const newTitle = `Task 1 - Edited - ${id}`;
+
         const due = todayISO();
         const priority = 'high';
 
@@ -22,12 +24,10 @@ test.describe('Tasks - Edit', () => {
         const taskBoard = new TaskBoardPage(page);
 
         await login.login(email, password);
-
         await expect(taskBoard.card).toBeVisible();
         await expect(taskBoard.userName).toHaveText(expectedUser);
 
         await taskBoard.createTask({ title, due, priority });
-
         await expect(taskBoard.taskItem(title)).toBeVisible();
 
         await taskBoard.editTask(title, { title: newTitle });
@@ -39,8 +39,10 @@ test.describe('Tasks - Edit', () => {
     });
     test('cancel task edits', async ({ page }) => {
         const id = Date.now();
+
         const title = `Task 2 - Created - ${id}`;
         const newTitle = `Task 2 - Edited - ${id}`;
+
         const due = todayISO();
         const priority = 'med';
 
@@ -50,12 +52,10 @@ test.describe('Tasks - Edit', () => {
         const taskBoard = new TaskBoardPage(page);
 
         await login.login(email, password);
-
         await expect(taskBoard.card).toBeVisible();
         await expect(taskBoard.userName).toHaveText(expectedUser);
 
         await taskBoard.createTask({ title, due, priority });
-
         await expect(taskBoard.taskItem(title)).toBeVisible();
 
         await taskBoard.openEdit(title);
@@ -85,5 +85,17 @@ test.describe('Tasks - Edit', () => {
 
         const priority = 'low';
         const newPriority = 'high';
+
+        await gotoApp(page);
+
+        const login = new LoginPage(page);
+        const taskBoard = new TaskBoardPage(page);
+
+        await login.login(email, password);
+        await expect(taskBoard.card).toBeVisible();
+        await expect(taskBoard.userName).toHaveText(expectedUser);
+
+        await taskBoard.createTask({ title, due, priority });
+        await expect(taskBoard.taskItem(title)).toBeVisible();
     });
 });
