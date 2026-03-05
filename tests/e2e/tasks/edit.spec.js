@@ -64,7 +64,7 @@ test.describe('Tasks - Edit', () => {
         await expect(taskBoard.editForm()).toBeVisible();
         await taskBoard.editTitleInput().fill(newTitle);
 
-        // Confirm title was updated
+        // Confirm edit input was updated
         await expect(taskBoard.editTitleInput()).toHaveValue(newTitle);
 
         await taskBoard.cancelEdit();
@@ -73,5 +73,5 @@ test.describe('Tasks - Edit', () => {
         await expect(taskBoard.taskItem(newTitle)).toHaveCount(0);
         await expect(taskBoard.taskItem(title)).toBeVisible();
 
-    })
+    });
 });
