@@ -45,6 +45,14 @@ export class TaskBoardPage {
         await row.getByTestId('todo-item-toggle').click();
     }
 
+    taskPriorityBadge(title) {
+        return this.taskItem(title).getByTestId('badge-priority');
+    }
+
+    taskDueBadge(title) {
+        return this.taskItem(title).getByTestId('badge-due');
+    }
+
     taskCheckbox(title) {
         return this.taskItem(title).getByTestId('todo-item-toggle');
     }
@@ -52,6 +60,8 @@ export class TaskBoardPage {
     taskEditButton(title) {
         return this.taskItem(title).getByTestId('edit');
     }
+
+    /** Edit modal functions */
 
     async openEdit(title) {
         await this.taskEditButton(title).click();
