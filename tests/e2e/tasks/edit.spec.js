@@ -74,4 +74,16 @@ test.describe('Tasks - Edit', () => {
         await expect(taskBoard.taskItem(title)).toBeVisible();
 
     });
+    test('edit fields persist after reload', async ({ page }) => {
+        const id = Date.now();
+
+        const title = `Task 3 - Created - ${id}`;
+        const newTitle = `Task 3 - Edited - ${id}`;
+
+        const due = todayISO();
+        const newDue = '2029-03-05';
+
+        const priority = 'low';
+        const newPriority = 'high';
+    });
 });
