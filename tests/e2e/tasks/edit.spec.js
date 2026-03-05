@@ -2,9 +2,9 @@ import { test, expect } from '../../fixtures/baseTest.js';
 import { gotoApp } from '../../helpers/navigation.js';
 import { todayISO } from '../../helpers/date.js';
 import { LoginPage } from '../../pages/LoginPage.js';
-import { TaskBoardPage } from '../../pages/TaskBoardPage';
+import { TaskBoardPage } from '../../pages/TaskBoardPage.js';
 
-test.describe.only('Tasks - Edit', () => {
+test.describe('Tasks - Edit', () => {
     const email = 'sam@test.com';
     const password = 'password123';
     const expectedUser = email.split('@')[0];
@@ -52,7 +52,7 @@ test.describe.only('Tasks - Edit', () => {
         await login.login(email, password);
 
         await expect(taskBoard.card).toBeVisible();
-        await expect(taskBoard.userName).toContainText(expectedUser);
+        await expect(taskBoard.userName).toHaveText(expectedUser);
 
         await taskBoard.createTask({ title, due, priority });
 
@@ -60,15 +60,18 @@ test.describe.only('Tasks - Edit', () => {
 
         await taskBoard.openEdit(title);
 
+        // Open edit modal & change title
         await expect(taskBoard.editForm()).toBeVisible();
         await taskBoard.editTitleInput().fill(newTitle);
+
+        // Confirm title was updated
+        await expect(taskBoard.editTitleInput()).toHaveValue(newTitle);
+
         await taskBoard.cancelEdit();
 
         await expect(taskBoard.editForm()).not.toBeVisible();
         await expect(taskBoard.taskItem(newTitle)).toHaveCount(0);
         await expect(taskBoard.taskItem(title)).toBeVisible();
-
-        await expect(taskBoard.card).toBeVisible();
 
     })
 });
