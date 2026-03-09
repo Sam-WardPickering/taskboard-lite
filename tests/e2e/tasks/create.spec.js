@@ -27,6 +27,8 @@ test.describe('Tasks - Create', () => {
         await taskBoard.createTask({ title, due, priority });
 
         await expect(taskBoard.taskItem(title)).toBeVisible();
+        await expect(taskBoard.taskDueBadge(title)).toHaveValue(`due ${due}`);
+        await expect(taskBoard.taskPriorityBadge(title)).toHaveValue(priority);
     });
 
     test('task and session persist after reload', async ({ page }) => {
