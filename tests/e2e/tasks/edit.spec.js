@@ -117,9 +117,11 @@ test.describe('Tasks - Edit', () => {
 
         // Verify task persistence
         await expect(taskBoard.taskItem(newTitle)).toBeVisible();
+        await expect(taskBoard.taskItem(title)).toHaveCount(0);
 
         await taskBoard.openEdit(newTitle);
-        
+        await expect(taskBoard.editForm()).toBeVisible();
+
         await expect(taskBoard.editTitleInput()).toHaveValue(newTitle);
         await expect(taskBoard.editDueDateInput()).toHaveValue(newDue);
         await expect(taskBoard.editPrioritySelect()).toHaveValue(newPriority);
