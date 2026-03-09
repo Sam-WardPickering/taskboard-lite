@@ -106,10 +106,26 @@ test.describe('Tasks - Edit', () => {
         });
 
         await expect(taskBoard.taskItem(newTitle)).toBeVisible();
-        await expect(taskBoard.taskDueBadge(newTitle)).toHaveText(newDue);
+
+        await expect(taskBoard.taskDueBadge(newTitle)).toHaveText(`due ${newDue}`);
         await expect(taskBoard.taskPriorityBadge(newTitle)).toHaveText(newPriority);
         await expect(taskBoard.taskCheckbox(newTitle)).toBeChecked();
 
         await expect(taskBoard.taskItem(title)).toHaveCount(0);
+
+        await page.reload();
+
+        // Verify task persistence
+        await expect(taskBoard.taskItem(newTitle)).toBeVisible();
+
+        await taskBoard.openEdit(newTitle);
+        
+        await expect(taskBoard.editTitleInput()).toHaveValue(newTitle);
+        await expect(taskBoard.editDueDateInput()).toHaveValue(newDue);
+        await expect(taskBoard.editPrioritySelect()).toHaveValue(newPriority);
+        await expect(taskBoard.editCompletedCheckbox()).toBeChecked();
+
+        await taskBoard.cancelEdit();
+        await expect(taskBoard.editForm()).not.toBeVisible();
     });
 });
