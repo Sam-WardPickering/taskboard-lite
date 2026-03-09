@@ -27,8 +27,8 @@ test.describe('Tasks - Create', () => {
         await taskBoard.createTask({ title, due, priority });
 
         await expect(taskBoard.taskItem(title)).toBeVisible();
-        await expect(taskBoard.taskDueBadge(title)).toHaveValue(`due ${due}`);
-        await expect(taskBoard.taskPriorityBadge(title)).toHaveValue(priority);
+        await expect(taskBoard.taskDueBadge(title)).toHaveText(`due ${due}`);
+        await expect(taskBoard.taskPriorityBadge(title)).toHaveText(priority);
     });
 
     test('task and session persist after reload', async ({ page }) => {
@@ -49,12 +49,16 @@ test.describe('Tasks - Create', () => {
         await taskBoard.createTask({ title, due, priority });
 
         await expect(taskBoard.taskItem(title)).toBeVisible();
+        await expect(taskBoard.taskDueBadge(title)).toHaveText(`due ${due}`);
+        await expect(taskBoard.taskPriorityBadge(title)).toHaveText(priority);
 
         await page.reload();
 
         await expect(taskBoard.card).toBeVisible();
         await expect(taskBoard.userName).toHaveText(expectedUser);
         await expect(taskBoard.taskItem(title)).toBeVisible();
+        await expect(taskBoard.taskDueBadge(title)).toHaveText(`due ${due}`);
+        await expect(taskBoard.taskPriorityBadge(title)).toHaveText(priority);
 
     });
 });
