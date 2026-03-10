@@ -6,6 +6,6 @@ import { TaskBoardPage } from '../../pages/TaskBoardPage.js';
 
 test.describe('Task - Filters', () => {
     test('active filter', async ({ page }) => {
-        
+
     });
 });
