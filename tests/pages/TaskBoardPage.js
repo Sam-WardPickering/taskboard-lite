@@ -13,9 +13,10 @@ export class TaskBoardPage {
         this.dueDateInput = page.getByTestId('create-due');
         this.prioritySelect = page.getByTestId('create-priority');
         this.addTaskButton = page.getByTestId('create-submit');
-        this.filterAllButton = page.getByTestId('filter-all');
-        this.filterActiveButton = page.getByTestId('filter-active');
-        this.filterCompletedButton = page.getByTestId('filter-completed');
+        this.showAllButton = page.getByTestId('filter-all');
+        this.showActiveButton = page.getByTestId('filter-active');
+        this.showCompletedButton = page.getByTestId('filter-completed');
+        this.emptyState = page.getByTestId('empty');
     }
 
     async logout() {
@@ -126,15 +127,15 @@ export class TaskBoardPage {
     }
 
     /** Filtering */
-    async filterAll() {
-        await this.filterAllButton.click();
+    async showAll() {
+        await this.showAllButton.click();
     }
 
-    async filterActive() {
-        await this.filterActiveButton.click();
+    async showActive() {
+        await this.showActiveButton.click();
     }
 
-    async filterCompleted() {
-        await this.filterCompletedButton.click();
+    async showCompleted() {
+        await this.showCompletedButton.click();
     }
 }
