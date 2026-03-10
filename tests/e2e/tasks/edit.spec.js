@@ -3,12 +3,11 @@ import { gotoApp } from '../../helpers/navigation.js';
 import { todayISO } from '../../helpers/date.js';
 import { LoginPage } from '../../pages/LoginPage.js';
 import { TaskBoardPage } from '../../pages/TaskBoardPage.js';
+import { testUsers } from '../../test-data/users.js';
+
+const user = testUsers.sam;
 
 test.describe('Tasks - Edit', () => {
-    const email = 'sam@test.com';
-    const password = 'password123';
-    const expectedUser = email.split('@')[0];
-
     test('edit a task title (happy path)', async ({ page }) => {
         const id = Date.now();
 
@@ -23,9 +22,9 @@ test.describe('Tasks - Edit', () => {
         const login = new LoginPage(page);
         const taskBoard = new TaskBoardPage(page);
 
-        await login.login(email, password);
+        await login.login(user.email, user.password);
         await expect(taskBoard.card).toBeVisible();
-        await expect(taskBoard.userName).toHaveText(expectedUser);
+        await expect(taskBoard.userName).toHaveText(user.expectedUser);
 
         await taskBoard.createTask({ title, due, priority });
         await expect(taskBoard.taskItem(title)).toBeVisible();
@@ -51,9 +50,9 @@ test.describe('Tasks - Edit', () => {
         const login = new LoginPage(page);
         const taskBoard = new TaskBoardPage(page);
 
-        await login.login(email, password);
+        await login.login(user.email, user.password);
         await expect(taskBoard.card).toBeVisible();
-        await expect(taskBoard.userName).toHaveText(expectedUser);
+        await expect(taskBoard.userName).toHaveText(user.expectedUser);
 
         await taskBoard.createTask({ title, due, priority });
         await expect(taskBoard.taskItem(title)).toBeVisible();
@@ -91,9 +90,9 @@ test.describe('Tasks - Edit', () => {
         const login = new LoginPage(page);
         const taskBoard = new TaskBoardPage(page);
 
-        await login.login(email, password);
+        await login.login(user.email, user.password);
         await expect(taskBoard.card).toBeVisible();
-        await expect(taskBoard.userName).toHaveText(expectedUser);
+        await expect(taskBoard.userName).toHaveText(user.expectedUser);
 
         await taskBoard.createTask({ title, due, priority });
         await expect(taskBoard.taskItem(title)).toBeVisible();
