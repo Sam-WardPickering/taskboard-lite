@@ -3,12 +3,11 @@ import { gotoApp } from '../../helpers/navigation.js';
 import { LoginPage } from '../../pages/LoginPage.js';
 import { TaskBoardPage } from '../../pages/TaskBoardPage.js';
 import { todayISO } from '../../helpers/date.js';
+import { testUsers } from '../../test-data/users.js';
+
+const user = testUsers.sam;
 
 test.describe('Tasks - Create', () => {
-    const email = 'sam@test.com';
-    const password = 'password123';
-    const expectedUser = email.split('@')[0];
-
     test('create a task (happy path)', async ({ page }) => {
         const title = `Task ${Date.now()}`;
         const due = todayISO();
@@ -19,10 +18,10 @@ test.describe('Tasks - Create', () => {
         const login = new LoginPage(page);
         const taskBoard = new TaskBoardPage(page);
         
-        await login.login(email, password);
+        await login.login(user.email, user.password);
 
         await expect(taskBoard.card).toBeVisible();
-        await expect(taskBoard.userName).toHaveText(expectedUser);
+        await expect(taskBoard.userName).toHaveText(user.expectedUser);
 
         await taskBoard.createTask({ title, due, priority });
 
@@ -41,10 +40,10 @@ test.describe('Tasks - Create', () => {
         const login = new LoginPage(page);
         const taskBoard = new TaskBoardPage(page);
         
-        await login.login(email, password);
+        await login.login(user.email, user.password);
 
         await expect(taskBoard.card).toBeVisible();
-        await expect(taskBoard.userName).toHaveText(expectedUser);
+        await expect(taskBoard.userName).toHaveText(user.expectedUser);
 
         await taskBoard.createTask({ title, due, priority });
 
@@ -55,7 +54,7 @@ test.describe('Tasks - Create', () => {
         await page.reload();
 
         await expect(taskBoard.card).toBeVisible();
-        await expect(taskBoard.userName).toHaveText(expectedUser);
+        await expect(taskBoard.userName).toHaveText(user.expectedUser);
         await expect(taskBoard.taskItem(title)).toBeVisible();
         await expect(taskBoard.taskDueBadge(title)).toHaveText(`due ${due}`);
         await expect(taskBoard.taskPriorityBadge(title)).toHaveText(priority);
