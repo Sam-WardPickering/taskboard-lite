@@ -67,7 +67,5 @@ test.describe('Tasks - Complete', () => {
         await expect(taskBoard.userName).toHaveText(user.expectedUser);
         await expect(taskBoard.taskItem(title)).toBeVisible();
         await expect(taskBoard.taskCheckbox(title)).toBeChecked();
-
-        console.log(title);
     });
 });
