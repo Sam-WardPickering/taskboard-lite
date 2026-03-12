@@ -8,7 +8,7 @@ import { uniqueTitle } from '../../helpers/id.js';
 const user = testUsers.sam;
 
 test.describe('Task - Filters', () => {
-    test.only('shows only active tasks when Active filter is selected', async ({ page }) => {
+    test('shows only active tasks when Active filter is selected', async ({ page }) => {
         const taskActive = uniqueTitle('Task Active');
         const taskCompleted = uniqueTitle('Task Completed');
 
@@ -38,11 +38,39 @@ test.describe('Task - Filters', () => {
         await taskBoard.showActive();
         await expect(taskBoard.showActiveButton).toContainClass('is-active');
 
-        await expect(taskBoard.taskCheckbox(taskActive)).toBeVisible();
-        await expect(taskBoard.taskCheckbox(taskCompleted)).toHaveCount(0);
+        await expect(taskBoard.taskItem(taskActive)).toBeVisible();
+        await expect(taskBoard.taskItem(taskCompleted)).toHaveCount(0);
 
     });
-    // test('completed filter', async ({ page }) => {
+    test.only('shows only completed tasks when Completed filter is selected', async ({ page }) => {
+        const taskActive = uniqueTitle('Task Active');
+        const taskCompleted = uniqueTitle('Task Completed');
 
-    // });
+        await gotoApp(page);
+
+        const login = new LoginPage(page);
+        const taskBoard = new TaskBoardPage(page);
+
+        await login.login(user.email, user.password);
+        await expect(taskBoard.card).toBeVisible();
+        await expect(taskBoard.userName).toHaveText(user.expectedUser);
+
+        await taskBoard.createTask({ title: taskActive });
+        await expect(taskBoard.taskItem(taskActive)).toBeVisible();
+
+        await taskBoard.createTask({ title: taskCompleted });
+        await expect(taskBoard.taskItem(taskCompleted)).toBeVisible();
+
+        await taskBoard.toggleTask(taskCompleted);
+
+        await expect(taskBoard.taskCheckbox(taskCompleted)).toBeChecked();
+        await expect(taskBoard.taskCheckbox(taskActive)).not.toBeChecked();
+
+        await taskBoard.showCompleted();
+        await expect(taskBoard.showCompletedButton).toContainClass('is-active');
+
+        await expect(taskBoard.taskItem(taskCompleted)).toBeVisible();
+        await expect(taskBoard.taskItem(taskActive)).toHaveCount(0);
+        
+    });
 });
