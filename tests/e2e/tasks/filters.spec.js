@@ -7,7 +7,7 @@ import { uniqueTitle } from '../../helpers/id.js';
 
 const user = testUsers.sam;
 
-test.describe('Task - Filters', () => {
+test.describe('Tasks - Filters', () => {
     test('shows only active tasks when Active filter is selected', async ({ page }) => {
         const taskActive = uniqueTitle('Task Active');
         const taskCompleted = uniqueTitle('Task Completed');
@@ -71,6 +71,13 @@ test.describe('Task - Filters', () => {
 
         await expect(taskBoard.taskItem(taskCompleted)).toBeVisible();
         await expect(taskBoard.taskItem(taskActive)).toHaveCount(0);
+
+        // Verify return to default all state
+        await taskBoard.showAll();
+        await expect(taskBoard.showAllButton).toContainClass('is-active');
+
+        await expect(taskBoard.taskItem(taskActive)).toBeVisible();
+        await expect(taskBoard.taskItem(taskCompleted)).toBeVisible();
         
     });
 });
