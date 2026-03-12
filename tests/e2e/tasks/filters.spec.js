@@ -42,7 +42,7 @@ test.describe('Task - Filters', () => {
         await expect(taskBoard.taskItem(taskCompleted)).toHaveCount(0);
 
     });
-    test.only('shows only completed tasks when Completed filter is selected', async ({ page }) => {
+    test('shows only completed tasks when Completed filter is selected', async ({ page }) => {
         const taskActive = uniqueTitle('Task Active');
         const taskCompleted = uniqueTitle('Task Completed');
 
