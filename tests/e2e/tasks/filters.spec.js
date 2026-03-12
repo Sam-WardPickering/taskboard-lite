@@ -1,6 +1,5 @@
 import { test, expect } from '../../fixtures/baseTest.js';
 import { gotoApp } from '../../helpers/navigation.js';
-import { todayISO } from '../../helpers/date.js';
 import { LoginPage } from '../../pages/LoginPage.js';
 import { TaskBoardPage } from '../../pages/TaskBoardPage.js';
 import { testUsers } from '../../test-data/users.js';
@@ -39,8 +38,8 @@ test.describe('Task - Filters', () => {
         await taskBoard.showActive();
         await expect(taskBoard.showActiveButton).toContainClass('is-active');
 
-        // navigate to active
-        // confirm one is there
+        await expect(taskBoard.taskCheckbox(taskActive)).toBeVisible();
+        await expect(taskBoard.taskCheckbox(taskCompleted)).not.toBeVisible();
 
     });
     // test('completed filter', async ({ page }) => {
