@@ -36,8 +36,6 @@ test.describe('Tasks - Complete', () => {
         await taskBoard.toggleTask(title);
         await expect(taskBoard.taskCheckbox(title)).not.toBeChecked();
 
-        console.log(title);
-
     });
 
     test('completion persists after reload', async ({ page }) => {

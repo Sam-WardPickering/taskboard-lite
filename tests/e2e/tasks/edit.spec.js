@@ -74,9 +74,6 @@ test.describe('Tasks - Edit', () => {
         const title = uniqueTitle('Task - Created');
         const newTitle = uniqueTitle('Task - Edited');
 
-        console.log(title);
-        console.log(newTitle);
-
         const due = todayISO();
         const newDue = '2029-03-05';
 
