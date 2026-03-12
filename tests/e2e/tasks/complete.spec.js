@@ -4,12 +4,13 @@ import { todayISO } from '../../helpers/date.js';
 import { LoginPage } from '../../pages/LoginPage.js';
 import { TaskBoardPage } from '../../pages/TaskBoardPage.js';
 import { testUsers } from '../../test-data/users.js';
+import { uniqueTitle } from '../../helpers/id.js';
 
 const user = testUsers.sam;
 
 test.describe('Tasks - Complete', () => {
     test('complete a task (happy path)', async ({ page }) => {
-        const title = `Task ${Date.now()}`;
+        const title = uniqueTitle();
         const due = todayISO();
         const priority = 'high';
 
@@ -35,10 +36,12 @@ test.describe('Tasks - Complete', () => {
         await taskBoard.toggleTask(title);
         await expect(taskBoard.taskCheckbox(title)).not.toBeChecked();
 
+        console.log(title);
+
     });
 
     test('completion persists after reload', async ({ page }) => {
-        const title = `Task ${Date.now()}`;
+        const title = uniqueTitle();
         const due = todayISO();
         const priority = 'med';
 
@@ -66,5 +69,7 @@ test.describe('Tasks - Complete', () => {
         await expect(taskBoard.userName).toHaveText(user.expectedUser);
         await expect(taskBoard.taskItem(title)).toBeVisible();
         await expect(taskBoard.taskCheckbox(title)).toBeChecked();
+
+        console.log(title);
     });
 });

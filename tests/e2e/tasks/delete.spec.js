@@ -4,12 +4,13 @@ import { LoginPage } from '../../pages/LoginPage.js';
 import { TaskBoardPage } from '../../pages/TaskBoardPage.js';
 import { todayISO } from '../../helpers/date.js';
 import { testUsers } from '../../test-data/users.js';
+import { uniqueTitle } from '../../helpers/id.js';
 
 const user = testUsers.sam;
 
 test.describe('Tasks - Delete', () => {
     test('task can be deleted (happy path)', async ({ page }) => {
-        const title = `Task ${Date.now()}`;
+        const title = uniqueTitle();
         const due = todayISO();
         const priority = 'high';
 
@@ -33,7 +34,7 @@ test.describe('Tasks - Delete', () => {
     });
 
     test('task deletion persists after reload', async ({ page }) => {
-        const title = `Task ${Date.now()}`;
+        const title = uniqueTitle();
         const due = todayISO();
         const priority = 'med';
 

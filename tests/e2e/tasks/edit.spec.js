@@ -4,15 +4,14 @@ import { todayISO } from '../../helpers/date.js';
 import { LoginPage } from '../../pages/LoginPage.js';
 import { TaskBoardPage } from '../../pages/TaskBoardPage.js';
 import { testUsers } from '../../test-data/users.js';
+import { uniqueTitle } from '../../helpers/id.js';
 
 const user = testUsers.sam;
 
 test.describe('Tasks - Edit', () => {
     test('edit a task title (happy path)', async ({ page }) => {
-        const id = Date.now();
-
-        const title = `Task 1 - Created - ${id}`;
-        const newTitle = `Task 1 - Edited - ${id}`;
+        const title = uniqueTitle('Task - Created');
+        const newTitle = uniqueTitle('Task - Edited')
 
         const due = todayISO();
         const priority = 'high';
@@ -37,10 +36,8 @@ test.describe('Tasks - Edit', () => {
 
     });
     test('cancel task edits', async ({ page }) => {
-        const id = Date.now();
-
-        const title = `Task 2 - Created - ${id}`;
-        const newTitle = `Task 2 - Edited - ${id}`;
+        const title = uniqueTitle('Task - Created');
+        const newTitle = uniqueTitle('Task - Edited');
 
         const due = todayISO();
         const priority = 'med';
@@ -74,10 +71,11 @@ test.describe('Tasks - Edit', () => {
 
     });
     test('edit fields persist after reload', async ({ page }) => {
-        const id = Date.now();
+        const title = uniqueTitle('Task - Created');
+        const newTitle = uniqueTitle('Task - Edited');
 
-        const title = `Task 3 - Created - ${id}`;
-        const newTitle = `Task 3 - Edited - ${id}`;
+        console.log(title);
+        console.log(newTitle);
 
         const due = todayISO();
         const newDue = '2029-03-05';
