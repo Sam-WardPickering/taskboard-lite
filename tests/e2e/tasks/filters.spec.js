@@ -72,7 +72,7 @@ test.describe('Tasks - Filters', () => {
         await expect(taskBoard.taskItem(taskCompleted)).toBeVisible();
         await expect(taskBoard.taskItem(taskActive)).toHaveCount(0);
 
-        // Verify return to default all state
+        // Verify switching back to All restores both tasks
         await taskBoard.showAll();
         await expect(taskBoard.showAllButton).toContainClass('is-active');
 
