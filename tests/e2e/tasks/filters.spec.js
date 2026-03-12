@@ -22,6 +22,9 @@ test.describe('Task - Filters', () => {
         await expect(taskBoard.card).toBeVisible();
         await expect(taskBoard.userName).toHaveText(user.expectedUser);
 
+        // Assert initial filter state
+        await expect(taskBoard.showAllButton).toContainClass('is-active');
+
         await taskBoard.createTask({ title: taskActive });
         await expect(taskBoard.taskItem(taskActive)).toBeVisible();
 
@@ -33,7 +36,9 @@ test.describe('Task - Filters', () => {
         await expect(taskBoard.taskCheckbox(taskActive)).not.toBeChecked();
         await expect(taskBoard.taskCheckbox(taskCompleted)).toBeChecked();
         
-        // mark one completed
+        await taskBoard.showActive();
+        await expect(taskBoard.showActiveButton).toContainClass('is-active');
+
         // navigate to active
         // confirm one is there
 
