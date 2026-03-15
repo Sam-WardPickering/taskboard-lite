@@ -2,22 +2,22 @@ import { test, expect } from '../../fixtures/baseTest.js';
 import { gotoApp } from '../../helpers/navigation.js';
 import { LoginPage } from '../../pages/LoginPage.js';
 import { TaskBoardPage } from '../../pages/TaskBoardPage.js';
+import { testUsers } from '../../test-data/users.js';
+
+const user = testUsers.sam;
 
 test.describe('Logout', () => {
     test('user is correctly logged out', async ({ page }) => {
-        const email = 'sam@test.com';
-        const password = 'password123';
-        const expectedUsername = email.split('@')[0];
 
         await gotoApp(page);
 
         const login = new LoginPage(page);
-        await login.login(email, password);
+        await login.login(user.email, user.password);
 
         const taskBoard = new TaskBoardPage(page);
 
         await expect(taskBoard.card).toBeVisible();
-        await expect(taskBoard.userName).toHaveText(expectedUsername);
+        await expect(taskBoard.userName).toHaveText(user.expectedUser);
 
         await taskBoard.logout();
 
