@@ -25,6 +25,7 @@ test.describe('Login validation', () => {
 
         await gotoApp(page);
         const login = new LoginPage(page);
+        const taskBoard = new TaskBoardPage(page);
 
         await login.login(email, password);
 
@@ -39,6 +40,7 @@ test.describe('Login validation', () => {
 
         await gotoApp(page);
         const login = new LoginPage(page);
+        const taskBoard = new TaskBoardPage(page);
 
         await login.login(email, password);
 
