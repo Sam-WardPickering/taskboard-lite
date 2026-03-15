@@ -1,6 +1,7 @@
 import { test, expect } from '../../fixtures/baseTest.js';
 import { gotoApp } from '../../helpers/navigation.js';
 import { LoginPage } from '../../pages/LoginPage.js';
+import { TaskBoardPage } from '../../pages/TaskBoardPage.js';
 
 test.describe('Login validation', () => {
     test('shows error for invalid email format', async ({ page }) => {
@@ -9,12 +10,13 @@ test.describe('Login validation', () => {
 
         await gotoApp(page);
         const login = new LoginPage(page);
+        const taskBoard = new TaskBoardPage(page);
 
         await login.login(email, password);
 
         await expect(login.signInError).toHaveText('Enter a valid email.');
         await expect(login.card).toBeVisible();
-        await expect(page.getByTestId('app-card')).not.toBeVisible();
+        await expect(taskBoard.card).not.toBeVisible();
     });
 
     test('shows error for incorrect password length', async ({ page }) => {
@@ -28,7 +30,7 @@ test.describe('Login validation', () => {
 
         await expect(login.signInError).toHaveText('Password must be at least 6 characters.');
         await expect(login.card).toBeVisible();
-        await expect(page.getByTestId('app-card')).not.toBeVisible();
+        await expect(taskBoard.card).not.toBeVisible();
     });
 
     test('shows error for invalid credentials', async ({ page }) => {
@@ -42,6 +44,6 @@ test.describe('Login validation', () => {
 
         await expect(login.signInError).toHaveText('Invalid credentials.');
         await expect(login.card).toBeVisible();
-        await expect(page.getByTestId('app-card')).not.toBeVisible();
+        await expect(taskBoard.card).not.toBeVisible();
     });
 });
