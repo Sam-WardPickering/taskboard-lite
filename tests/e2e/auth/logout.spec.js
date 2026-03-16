@@ -1,8 +1,7 @@
 import { test, expect } from '../../fixtures/baseTest.js';
 import { gotoApp } from '../../helpers/navigation.js';
-import { LoginPage } from '../../pages/LoginPage.js';
-import { TaskBoardPage } from '../../pages/TaskBoardPage.js';
 import { testUsers } from '../../test-data/users.js';
+import { loginAs } from '../../helpers/auth.js';
 
 const user = testUsers.sam;
 
@@ -11,10 +10,7 @@ test.describe('Logout', () => {
 
         await gotoApp(page);
 
-        const login = new LoginPage(page);
-        await login.login(user.email, user.password);
-
-        const taskBoard = new TaskBoardPage(page);
+        const { login, taskBoard } = await loginAs(page, user);
 
         await expect(taskBoard.card).toBeVisible();
         await expect(taskBoard.userName).toHaveText(user.expectedUser);
