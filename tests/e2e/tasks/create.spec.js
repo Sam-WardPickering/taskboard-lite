@@ -15,7 +15,7 @@ test.describe('Tasks - Create', () => {
 
         await gotoApp(page);
 
-        const { taskBoard } = await loginAs(email, password);
+        const { taskBoard } = await loginAs(page, user);
 
         await expect(taskBoard.card).toBeVisible();
         await expect(taskBoard.userName).toHaveText(user.expectedUser);

@@ -5,7 +5,7 @@ export async function loginAs(page, user){
     const login = new LoginPage(page);
     const taskBoard = new TaskBoardPage(page);
 
-    login.login(user.email. user.password);
+    await login.login(user.email, user.password);
 
     return { login, taskBoard };
 }
