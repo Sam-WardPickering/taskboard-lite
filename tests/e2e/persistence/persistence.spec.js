@@ -31,7 +31,8 @@ test.describe('Persistence Tests', () => {
         await expect(taskBoard.taskPriorityBadge(title)).toHaveText(priority);
 
     });
-        test('edit fields persist after reload', async ({ page }) => {
+
+    test('edit fields persist after reload', async ({ page }) => {
         const title = uniqueTitle('Task - Created');
         const newTitle = uniqueTitle('Task - Edited');
 
@@ -83,6 +84,7 @@ test.describe('Persistence Tests', () => {
         await taskBoard.cancelEdit();
         await expect(taskBoard.editForm()).not.toBeVisible();
     });
+
     test('completion persists after reload', async ({ page }) => {
         const title = uniqueTitle();
         const due = todayISO();
@@ -110,5 +112,33 @@ test.describe('Persistence Tests', () => {
         await expect(taskBoard.userName).toHaveText(user.expectedUser);
         await expect(taskBoard.taskItem(title)).toBeVisible();
         await expect(taskBoard.taskCheckbox(title)).toBeChecked();
+    });
+    
+    test('task deletion persists after reload', async ({ page }) => {
+        const title = uniqueTitle();
+        const due = todayISO();
+        const priority = 'med';
+
+        await gotoApp(page);
+
+        const { taskBoard } = await loginAs(page, user);
+
+        await expect(taskBoard.card).toBeVisible();
+        await expect(taskBoard.userName).toHaveText(user.expectedUser);
+
+        await taskBoard.createTask({ title, due, priority });
+
+        await expect(taskBoard.taskItem(title)).toBeVisible();
+
+        await taskBoard.deleteTask(title);
+
+        await expect(taskBoard.taskItem(title)).toHaveCount(0);
+
+        await page.reload();
+
+        await expect(taskBoard.card).toBeVisible();
+        await expect(taskBoard.userName).toHaveText(user.expectedUser);
+        await expect(taskBoard.taskItem(title)).toHaveCount(0);
+
     });
 })
