@@ -138,4 +138,8 @@ export class TaskBoardPage {
     async showCompleted() {
         await this.showCompletedButton.click();
     }
+
+    taskRow(title) {
+        return this.taskItem(title);
+    }
 }

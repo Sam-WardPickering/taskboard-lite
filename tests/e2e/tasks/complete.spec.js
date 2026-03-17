@@ -53,6 +53,7 @@ test.describe('Tasks - Complete', () => {
         // Complete task
         await taskBoard.toggleTask(title);
         await expect(taskBoard.taskCheckbox(title)).toBeChecked();
+        await expect(taskBoard.taskItem(title)).toHaveClass(/completed/);
 
         await page.reload();
 
