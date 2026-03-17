@@ -1,7 +1,11 @@
 import { test, expect } from '../../fixtures/baseTest.js';
-import { LoginPage } from '../../pages/LoginPage.js';
-import { TaskBoardPage } from '../../pages/TaskBoardPage.js';
 import { gotoApp } from '../../helpers/navigation.js';
+import { testUsers } from '../../test-data/users.js';
+import { uniqueTitle } from '../../helpers/id.js';
+import { todayISO } from '../../helpers/date.js';
+import { loginAs } from '../../helpers/auth.js';
+
+const user = testUsers.sam;
 
 test.describe('Persistence Tests', () => {
     test('task and session persist after reload', async ({ page }) => {
@@ -113,7 +117,7 @@ test.describe('Persistence Tests', () => {
         await expect(taskBoard.taskItem(title)).toBeVisible();
         await expect(taskBoard.taskCheckbox(title)).toBeChecked();
     });
-    
+
     test('task deletion persists after reload', async ({ page }) => {
         const title = uniqueTitle();
         const due = todayISO();
