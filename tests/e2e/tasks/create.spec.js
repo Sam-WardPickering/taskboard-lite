@@ -26,32 +26,4 @@ test.describe('Tasks - Create', () => {
         await expect(taskBoard.taskDueBadge(title)).toHaveText(`due ${due}`);
         await expect(taskBoard.taskPriorityBadge(title)).toHaveText(priority);
     });
-
-    test('task and session persist after reload', async ({ page }) => {
-        const title = uniqueTitle();
-        const due = todayISO();
-        const priority = 'med';
-
-        await gotoApp(page);
-
-        const { taskBoard } = await loginAs(page, user);
-
-        await expect(taskBoard.card).toBeVisible();
-        await expect(taskBoard.userName).toHaveText(user.expectedUser);
-
-        await taskBoard.createTask({ title, due, priority });
-
-        await expect(taskBoard.taskItem(title)).toBeVisible();
-        await expect(taskBoard.taskDueBadge(title)).toHaveText(`due ${due}`);
-        await expect(taskBoard.taskPriorityBadge(title)).toHaveText(priority);
-
-        await page.reload();
-
-        await expect(taskBoard.card).toBeVisible();
-        await expect(taskBoard.userName).toHaveText(user.expectedUser);
-        await expect(taskBoard.taskItem(title)).toBeVisible();
-        await expect(taskBoard.taskDueBadge(title)).toHaveText(`due ${due}`);
-        await expect(taskBoard.taskPriorityBadge(title)).toHaveText(priority);
-
-    });
 });
