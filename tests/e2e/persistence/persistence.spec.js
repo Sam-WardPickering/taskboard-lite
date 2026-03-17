@@ -7,8 +7,8 @@ import { loginAs } from '../../helpers/auth.js';
 
 const user = testUsers.sam;
 
-test.describe('Persistence Tests', () => {
-    test('task and session persist after reload', async ({ page }) => {
+test.describe('Persistence', () => {
+    test('created task persists after reload', async ({ page }) => {
         const title = uniqueTitle();
         const due = todayISO();
         const priority = 'med';
@@ -33,10 +33,9 @@ test.describe('Persistence Tests', () => {
         await expect(taskBoard.taskItem(title)).toBeVisible();
         await expect(taskBoard.taskDueBadge(title)).toHaveText(`due ${due}`);
         await expect(taskBoard.taskPriorityBadge(title)).toHaveText(priority);
-
     });
 
-    test('edit fields persist after reload', async ({ page }) => {
+    test('edited task persists after reload', async ({ page }) => {
         const title = uniqueTitle('Task - Created');
         const newTitle = uniqueTitle('Task - Edited');
 
@@ -73,7 +72,9 @@ test.describe('Persistence Tests', () => {
 
         await page.reload();
 
-        // Verify task persistence
+        await expect(taskBoard.card).toBeVisible();
+        await expect(taskBoard.userName).toHaveText(user.expectedUser);
+
         await expect(taskBoard.taskItem(newTitle)).toBeVisible();
         await expect(taskBoard.taskItem(title)).toHaveCount(0);
 
@@ -89,7 +90,7 @@ test.describe('Persistence Tests', () => {
         await expect(taskBoard.editForm()).not.toBeVisible();
     });
 
-    test('completion persists after reload', async ({ page }) => {
+    test('completed task persists after reload', async ({ page }) => {
         const title = uniqueTitle();
         const due = todayISO();
         const priority = 'med';
@@ -118,7 +119,7 @@ test.describe('Persistence Tests', () => {
         await expect(taskBoard.taskCheckbox(title)).toBeChecked();
     });
 
-    test('task deletion persists after reload', async ({ page }) => {
+    test('deleted task remains deleted after reload', async ({ page }) => {
         const title = uniqueTitle();
         const due = todayISO();
         const priority = 'med';
@@ -143,6 +144,5 @@ test.describe('Persistence Tests', () => {
         await expect(taskBoard.card).toBeVisible();
         await expect(taskBoard.userName).toHaveText(user.expectedUser);
         await expect(taskBoard.taskItem(title)).toHaveCount(0);
-
     });
-})
+});
