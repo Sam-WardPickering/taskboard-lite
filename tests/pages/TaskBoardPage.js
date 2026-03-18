@@ -144,5 +144,7 @@ export class TaskBoardPage {
         return this.taskItem(title);
     }
 
-    a
+    async searchTask(value) {
+        await this.searchTask.fill(value);
+    }
 }
