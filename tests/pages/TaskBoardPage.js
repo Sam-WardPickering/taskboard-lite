@@ -17,6 +17,7 @@ export class TaskBoardPage {
         this.showActiveButton = page.getByTestId('filter-active');
         this.showCompletedButton = page.getByTestId('filter-completed');
         this.emptyState = page.getByTestId('empty');
+        this.searchTask = get.getByTestId('search');
     }
 
     async logout() {
@@ -142,4 +143,6 @@ export class TaskBoardPage {
     taskRow(title) {
         return this.taskItem(title);
     }
+
+    a
 }
