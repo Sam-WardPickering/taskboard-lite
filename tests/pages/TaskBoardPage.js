@@ -17,7 +17,7 @@ export class TaskBoardPage {
         this.showActiveButton = page.getByTestId('filter-active');
         this.showCompletedButton = page.getByTestId('filter-completed');
         this.emptyState = page.getByTestId('empty');
-        this.searchTask = get.getByTestId('search');
+        this.searchTask = page.getByTestId('search');
     }
 
     async logout() {

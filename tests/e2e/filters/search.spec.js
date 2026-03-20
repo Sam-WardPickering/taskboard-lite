@@ -6,7 +6,7 @@ import { loginAs } from '../../helpers/auth.js';
 const user = testUsers.sam;
 
 test.describe('Tasks - Search', () => { 
-    test('filtering valid task value returns corresponding task', async ({ page }) => {
+    test.only('filtering valid task value returns corresponding task', async ({ page }) => {
         const task1 = 'Task One';
         const task2 = 'Task Two';
         
@@ -22,6 +22,11 @@ test.describe('Tasks - Search', () => {
 
         await taskBoard.createTask({ title: task2});
         await expect(taskBoard.taskItem(task2)).toBeVisible();
+
+        await taskBoard.searchTask('One');
+
+        await expect(taskBoard.taskItem(task1)).toBeVisible();
+        await expect(taskBoard.taskItem(task2)).not.toBeVisible();
 
 
     });
