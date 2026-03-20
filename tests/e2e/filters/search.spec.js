@@ -23,11 +23,22 @@ test.describe('Tasks - Search', () => {
         await taskBoard.createTask({ title: task2});
         await expect(taskBoard.taskItem(task2)).toBeVisible();
 
+        // Search Task 1
         await taskBoard.searchTask('One');
 
         await expect(taskBoard.taskItem(task1)).toBeVisible();
         await expect(taskBoard.taskItem(task2)).not.toBeVisible();
 
+        // Search Task 2
+        await taskBoard.searchTask(task2);
 
+        await expect(taskBoard.taskItem(task2)).toBeVisible();
+        await expect(taskBoard.taskItem(task1)).not.toBeVisible();
+
+        // Clear search
+        await taskBoard.searchTask('');
+
+        await expect(taskBoard.taskItem(task1)).toBeVisible();
+        await expect(taskBoard.taskItem(task2)).toBeVisible();
     });
 });
