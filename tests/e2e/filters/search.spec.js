@@ -1,6 +1,6 @@
 import { test, expect } from '../../fixtures/baseTest.js';
 import { gotoApp } from '../../helpers/navigation.js';
-import { testUsers } from '../../test-data/users';
+import { testUsers } from '../../test-data/users.js';
 import { loginAs } from '../../helpers/auth.js';
 
 const user = testUsers.sam;
@@ -27,13 +27,13 @@ test.describe('Tasks - Search', () => {
         await taskBoard.searchTask('One');
 
         await expect(taskBoard.taskItem(task1)).toBeVisible();
-        await expect(taskBoard.taskItem(task2)).not.toBeVisible();
+        await expect(taskBoard.taskItem(task2)).toHaveCount(0);
 
         // Search Task 2
         await taskBoard.searchTask(task2);
 
         await expect(taskBoard.taskItem(task2)).toBeVisible();
-        await expect(taskBoard.taskItem(task1)).not.toBeVisible();
+        await expect(taskBoard.taskItem(task1)).toHaveCount(0);
 
         // Clear search
         await taskBoard.searchTask('');
