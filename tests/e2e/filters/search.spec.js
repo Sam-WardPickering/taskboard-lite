@@ -6,7 +6,7 @@ import { loginAs } from '../../helpers/auth.js';
 const user = testUsers.sam;
 
 test.describe('Tasks - Search', () => { 
-    test.only('filtering valid task value returns corresponding task', async ({ page }) => {
+    test('filtering valid task value returns corresponding task', async ({ page }) => {
         const task1 = 'Task One';
         const task2 = 'Task Two';
         
