@@ -19,6 +19,14 @@ test.describe('Tasks - Sort', () => {
         await expect(taskBoard.card).toBeVisible();
         await expect(taskBoard.userName).toHaveText(user.expectedUser);
 
-        
+        await taskBoard.createTask({ title: firstTask });
+        await expect(taskBoard.taskItem(firstTask)).toBeVisible();
+
+        await taskBoard.createTask({ title: secondTask });
+        await expect(taskBoard.taskItem(secondTask)).toBeVisible();
+
+        await taskBoard.createTask({ title: thirdTask });
+        await expect(taskBoard.taskItem(thirdTask)).toBeVisible();
+
     })
 });
