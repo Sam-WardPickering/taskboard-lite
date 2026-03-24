@@ -42,7 +42,7 @@ test.describe('Tasks - Search', () => {
         await expect(taskBoard.taskItem(task1)).toBeVisible();
         await expect(taskBoard.taskItem(task2)).toBeVisible();
     });
-    test.only('shows empty state when no tasks match the search', async ({ page }) => {
+    test('shows empty state when no tasks match the search', async ({ page }) => {
         const task1 = uniqueTitle('Task One');
         const task2 = uniqueTitle('Task Two');
 
@@ -59,10 +59,10 @@ test.describe('Tasks - Search', () => {
         await taskBoard.createTask({ title: task2 });
         await expect(taskBoard.taskItem(task2)).toBeVisible();
 
-        await taskBoard.searchTask('asdf');
+        await taskBoard.searchTask('does-not-match');
 
         await expect(taskBoard.taskItem(task1)).toHaveCount(0);
         await expect(taskBoard.taskItem(task2)).toHaveCount(0);
         await expect(taskBoard.emptyState).toBeVisible();
-    })
+    });
 });
