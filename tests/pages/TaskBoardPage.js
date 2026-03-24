@@ -18,6 +18,7 @@ export class TaskBoardPage {
         this.showCompletedButton = page.getByTestId('filter-completed');
         this.emptyState = page.getByTestId('empty');
         this.searchInput = page.getByTestId('search');
+        this.sortSelect = page.getByTestId('sort');
     }
 
     async logout() {
@@ -146,5 +147,17 @@ export class TaskBoardPage {
 
     async searchTask(value) {
         await this.searchInput.fill(value);
+    }
+
+    async sortByNewest() {
+        await this.sortSelect.selectOption('created_desc');
+    }
+
+    async sortByDueDate() {
+        await this.sortSelect.selectOption('due_asc');
+    }
+
+    async sortByPriority() {
+        await this.sortSelect.selectOption('priority_desc');
     }
 }
