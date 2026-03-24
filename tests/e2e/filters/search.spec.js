@@ -7,7 +7,7 @@ import { uniqueTitle } from '../../helpers/id.js';
 const user = testUsers.sam;
 
 test.describe('Tasks - Search', () => { 
-    test.only('filtering valid task value returns corresponding task', async ({ page }) => {
+    test('shows matching tasks when searching by title', async ({ page }) => {
         const task1 = uniqueTitle('Task One');
         const task2 = uniqueTitle('Task Two');
         
@@ -18,10 +18,10 @@ test.describe('Tasks - Search', () => {
         await expect(taskBoard.card).toBeVisible();
         await expect(taskBoard.userName).toHaveText(user.expectedUser);
 
-        await taskBoard.createTask({title: task1});
+        await taskBoard.createTask({ title: task1 });
         await expect(taskBoard.taskItem(task1)).toBeVisible();
 
-        await taskBoard.createTask({ title: task2});
+        await taskBoard.createTask({ title: task2 });
         await expect(taskBoard.taskItem(task2)).toBeVisible();
 
         // Search Task 1
@@ -42,4 +42,27 @@ test.describe('Tasks - Search', () => {
         await expect(taskBoard.taskItem(task1)).toBeVisible();
         await expect(taskBoard.taskItem(task2)).toBeVisible();
     });
+    test.only('shows empty state when no tasks match the search', async ({ page }) => {
+        const task1 = uniqueTitle('Task One');
+        const task2 = uniqueTitle('Task Two');
+
+        await gotoApp(page);
+
+        const { taskBoard } = await loginAs(page, user);
+
+        await expect(taskBoard.card).toBeVisible();
+        await expect(taskBoard.userName).toHaveText(user.expectedUser);
+
+        await taskBoard.createTask({ title: task1 });
+        await expect(taskBoard.taskItem(task1)).toBeVisible();
+
+        await taskBoard.createTask({ title: task2 });
+        await expect(taskBoard.taskItem(task2)).toBeVisible();
+
+        await taskBoard.searchTask('asdf');
+
+        await expect(taskBoard.taskItem(task1)).toHaveCount(0);
+        await expect(taskBoard.taskItem(task2)).toHaveCount(0);
+        await expect(taskBoard.emptyState).toBeVisible();
+    })
 });
