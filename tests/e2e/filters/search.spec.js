@@ -2,13 +2,14 @@ import { test, expect } from '../../fixtures/baseTest.js';
 import { gotoApp } from '../../helpers/navigation.js';
 import { testUsers } from '../../test-data/users.js';
 import { loginAs } from '../../helpers/auth.js';
+import { uniqueTitle } from '../../helpers/id.js';
 
 const user = testUsers.sam;
 
 test.describe('Tasks - Search', () => { 
-    test('filtering valid task value returns corresponding task', async ({ page }) => {
-        const task1 = 'Task One';
-        const task2 = 'Task Two';
+    test.only('filtering valid task value returns corresponding task', async ({ page }) => {
+        const task1 = uniqueTitle('Task One');
+        const task2 = uniqueTitle('Task Two');
         
         await gotoApp(page);
 
