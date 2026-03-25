@@ -160,4 +160,14 @@ export class TaskBoardPage {
     async sortByPriority() {
         await this.sortSelect.selectOption('priority_desc');
     }
+
+    /* Sorting Tasks */
+
+    taskItems() {
+        return this.page.getByTestId('todo-item');
+    }
+
+    async getTaskTitlesInOrder() {
+        return await this.taskItems().locator('.task-text').allTextContents();
+    }
 }

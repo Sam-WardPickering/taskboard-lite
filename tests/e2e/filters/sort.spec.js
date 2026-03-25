@@ -7,7 +7,7 @@ import { testUsers } from '../../test-data/users.js';
 const user = testUsers.sam;
 
 test.describe('Tasks - Sort', () => {
-    test('tasks are sorted by newest', async ({ page }) => {
+    test.only('tasks are sorted by newest', async ({ page }) => {
         const firstTask = uniqueTitle('First Task');
         const secondTask = uniqueTitle('Second Task');
         const thirdTask = uniqueTitle('Third Task');
@@ -27,6 +27,11 @@ test.describe('Tasks - Sort', () => {
 
         await taskBoard.createTask({ title: thirdTask });
         await expect(taskBoard.taskItem(thirdTask)).toBeVisible();
+
+        await taskBoard.sortByNewest();
+
+        const itemList = await taskBoard.getTaskTitlesInOrder();
+        expect(itemList).toEqual([thirdTask, secondTask, firstTask]);
 
     })
 });
