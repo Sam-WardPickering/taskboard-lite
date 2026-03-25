@@ -7,7 +7,7 @@ import { testUsers } from '../../test-data/users.js';
 const user = testUsers.sam;
 
 test.describe('Tasks - Sort', () => {
-    test.only('tasks are sorted by newest', async ({ page }) => {
+    test('shows newest tasks first when sorted by Newest', async ({ page }) => {
         const firstTask = uniqueTitle('First Task');
         const secondTask = uniqueTitle('Second Task');
         const thirdTask = uniqueTitle('Third Task');
@@ -20,12 +20,11 @@ test.describe('Tasks - Sort', () => {
         await expect(taskBoard.userName).toHaveText(user.expectedUser);
 
         await taskBoard.createTask({ title: firstTask });
-        await expect(taskBoard.taskItem(firstTask)).toBeVisible();
-
         await taskBoard.createTask({ title: secondTask });
-        await expect(taskBoard.taskItem(secondTask)).toBeVisible();
-
         await taskBoard.createTask({ title: thirdTask });
+
+        await expect(taskBoard.taskItem(firstTask)).toBeVisible();
+        await expect(taskBoard.taskItem(secondTask)).toBeVisible();
         await expect(taskBoard.taskItem(thirdTask)).toBeVisible();
 
         await taskBoard.sortByNewest();
@@ -33,5 +32,5 @@ test.describe('Tasks - Sort', () => {
         const itemList = await taskBoard.getTaskTitlesInOrder();
         expect(itemList).toEqual([thirdTask, secondTask, firstTask]);
 
-    })
+    });
 });
