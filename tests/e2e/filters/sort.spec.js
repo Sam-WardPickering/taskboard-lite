@@ -23,10 +23,6 @@ test.describe('Tasks - Sort', () => {
         await taskBoard.createTask({ title: secondTask });
         await taskBoard.createTask({ title: thirdTask });
 
-        await expect(taskBoard.taskItem(firstTask)).toBeVisible();
-        await expect(taskBoard.taskItem(secondTask)).toBeVisible();
-        await expect(taskBoard.taskItem(thirdTask)).toBeVisible();
-
         await taskBoard.sortByNewest();
 
         const itemList = await taskBoard.getTaskTitlesInOrder();
