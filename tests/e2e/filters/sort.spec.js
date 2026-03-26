@@ -20,8 +20,13 @@ test.describe('Tasks - Sort', () => {
         await expect(taskBoard.userName).toHaveText(user.expectedUser);
 
         await taskBoard.createTask({ title: firstTask });
+        await expect(taskBoard.taskItem(firstTask)).toBeVisible();
+
         await taskBoard.createTask({ title: secondTask });
+        await expect(taskBoard.taskItem(secondTask)).toBeVisible();
+
         await taskBoard.createTask({ title: thirdTask });
+        await expect(taskBoard.taskItem(thirdTask)).toBeVisible();
 
         await taskBoard.sortByNewest();
 
@@ -42,8 +47,13 @@ test.describe('Tasks - Sort', () => {
         await expect(taskBoard.userName).toHaveText(user.expectedUser);
 
         await taskBoard.createTask({ title: dueFirst, due: '2026-03-01' });
+        await expect(taskBoard.taskItem(dueFirst)).toBeVisible();
+
         await taskBoard.createTask({ title: dueSecond, due: '2026-06-01' });
+        await expect(taskBoard.taskItem(dueSecond)).toBeVisible();
+
         await taskBoard.createTask({ title: dueLast, due: '2026-09-01'});
+        await expect(taskBoard.taskItem(dueLast)).toBeVisible();
 
         await taskBoard.sortByDueDate();
 
