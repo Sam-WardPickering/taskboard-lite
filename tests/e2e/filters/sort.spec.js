@@ -64,4 +64,33 @@ test.describe('Tasks - Sort', () => {
         const itemList = await taskBoard.getTaskTitlesInOrder();
         expect(itemList).toEqual([dueFirst, dueSecond, dueLast]);
     });
+    test('shows tasks ordered by priority when sorted by Priority', async ({ page }) => {
+        const priorityLow = uniqueTitle('Low Priority');
+        const priorityMed = uniqueTitle('Medium Priority');
+        const priorityHigh = uniqueTitle('High Priority');
+
+        await gotoApp(page);
+
+        const { taskBoard } = await loginAs(page, user);
+
+        await expect(taskBoard.card).toBeVisible();
+        await expect(taskBoard.userName).toContainText(user.expectedUser);
+
+        await taskBoard.createTask({ title: priorityLow, priority: 'low' });
+        await expect(taskBoard.taskItem(priorityLow)).toBeVisible();
+
+        await taskBoard.createTask({ title: priorityMed, priority: 'med' });
+        await expect(taskBoard.taskItem(priorityMed)).toBeVisible();
+
+        await taskBoard.createTask({ title: priorityHigh, priority: 'high' });
+        await expect(taskBoard.taskItem(priorityHigh)).toBeVisible();
+
+        await taskBoard.sortByPriority();
+
+        await expect(taskBoard.taskItems()).toHaveCount(3);
+
+        const taskList = await taskBoard.getTaskTitlesInOrder();
+        expect(taskList).toEqual([priorityHigh, priorityMed, priorityLow]);
+
+    })
 });
