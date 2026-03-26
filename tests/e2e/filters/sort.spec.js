@@ -74,7 +74,7 @@ test.describe('Tasks - Sort', () => {
         const { taskBoard } = await loginAs(page, user);
 
         await expect(taskBoard.card).toBeVisible();
-        await expect(taskBoard.userName).toContainText(user.expectedUser);
+        await expect(taskBoard.userName).toHaveText(user.expectedUser);
 
         await taskBoard.createTask({ title: priorityLow, priority: 'low' });
         await expect(taskBoard.taskItem(priorityLow)).toBeVisible();
@@ -89,8 +89,7 @@ test.describe('Tasks - Sort', () => {
 
         await expect(taskBoard.taskItems()).toHaveCount(3);
 
-        const taskList = await taskBoard.getTaskTitlesInOrder();
-        expect(taskList).toEqual([priorityHigh, priorityMed, priorityLow]);
-
-    })
+        const itemList = await taskBoard.getTaskTitlesInOrder();
+        expect(itemList).toEqual([priorityHigh, priorityMed, priorityLow]);
+    });
 });
