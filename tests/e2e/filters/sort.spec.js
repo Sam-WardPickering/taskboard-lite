@@ -30,6 +30,8 @@ test.describe('Tasks - Sort', () => {
 
         await taskBoard.sortByNewest();
 
+        await expect(taskBoard.taskItems()).toHaveCount(3);
+
         const itemList = await taskBoard.getTaskTitlesInOrder();
         expect(itemList).toEqual([thirdTask, secondTask, firstTask]);
 
@@ -56,6 +58,8 @@ test.describe('Tasks - Sort', () => {
         await expect(taskBoard.taskItem(dueLast)).toBeVisible();
 
         await taskBoard.sortByDueDate();
+
+        await expect(taskBoard.taskItems()).toHaveCount(3);
 
         const itemList = await taskBoard.getTaskTitlesInOrder();
         expect(itemList).toEqual([dueFirst, dueSecond, dueLast]);
