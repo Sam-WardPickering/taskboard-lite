@@ -29,4 +29,25 @@ test.describe('Tasks - Sort', () => {
         expect(itemList).toEqual([thirdTask, secondTask, firstTask]);
 
     });
+    test('shows tasks ordered by due date when filtered by Due Date', async ({ page }) => {
+        const dueFirst = uniqueTitle('This is due first');
+        const dueSecond = uniqueTitle('This is due second');
+        const dueLast = uniqueTitle('This is due last');
+        
+        await gotoApp(page);
+
+        const { taskBoard } = await loginAs(page, user);
+
+        await expect(taskBoard.card).toBeVisible();
+        await expect(taskBoard.userName).toHaveText(user.expectedUser);
+
+        await taskBoard.createTask({ title: dueFirst, due: '2026-03-26' });
+        await taskBoard.createTask({ title: dueSecond, due: '2026-03-28' });
+        await taskBoard.createTask({ title: dueLast, due: '2026-03-31'});
+
+        await taskBoard.sortByDueDate();
+
+        const itemList = await taskBoard.getTaskTitlesInOrder();
+        expect(itemList).toEqual([dueFirst, dueSecond, dueLast]);
+    });
 });
