@@ -19,6 +19,8 @@ export class TaskBoardPage {
         this.emptyState = page.getByTestId('empty');
         this.searchInput = page.getByTestId('search');
         this.sortSelect = page.getByTestId('sort');
+        this.markAllCompleteButton = page.getByTestId('bulk-complete');
+        this.clearCompletedButton = page.getByTestId('clear-completed');
     }
 
     async logout() {
@@ -169,5 +171,9 @@ export class TaskBoardPage {
 
     async getTaskTitlesInOrder() {
         return await this.taskItems().locator('.task-text').allTextContents();
+    }
+
+    async markAllCompleted() {
+        await this.markAllCompleteButton.click();
     }
 }
