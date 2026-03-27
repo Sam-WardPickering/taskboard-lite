@@ -23,7 +23,7 @@ test.describe('Tasks - Bulk Actions', () => {
         await taskBoard.createTask({ title: taskTwo });
         await taskBoard.createTask({ title: taskThree });
 
-        
+        await taskBoard.markAllCompleted();
 
 
     });

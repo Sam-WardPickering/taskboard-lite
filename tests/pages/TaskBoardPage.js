@@ -176,4 +176,8 @@ export class TaskBoardPage {
     async markAllCompleted() {
         await this.markAllCompleteButton.click();
     }
+
+    async clearCompleted() {
+        await this.clearCompletedButton.click();
+    }
 }
