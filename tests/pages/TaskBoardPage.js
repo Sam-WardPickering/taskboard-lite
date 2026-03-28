@@ -180,4 +180,8 @@ export class TaskBoardPage {
     async clearCompleted() {
         await this.clearCompletedButton.click();
     }
+
+    taskCheckboxes() {
+        return this.page.getByTestId('todo-item-toggle');
+    }
 }
