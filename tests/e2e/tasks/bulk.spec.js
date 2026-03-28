@@ -28,6 +28,8 @@ test.describe('Tasks - Bulk Actions', () => {
         await taskBoard.createTask({ title: taskThree });
         await expect(taskBoard.taskItem(taskThree)).toBeVisible();
 
+        await expect(taskBoard.taskItems()).toHaveCount(3);
+
         await taskBoard.markAllCompleted();
 
         await expect(taskBoard.taskCheckboxes()).toHaveCount(3);
