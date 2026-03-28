@@ -7,7 +7,7 @@ import { testUsers } from '../../test-data/users.js';
 const user = testUsers.sam;
 
 test.describe('Tasks - Bulk Actions', () => {
-    test.only('all tasks are completed when Complete All is pressed', async ({ page }) => {
+    test('all tasks are completed when Complete All is pressed', async ({ page }) => {
         const taskOne = uniqueTitle('Task One');
         const taskTwo = uniqueTitle('Task Two');
         const taskThree = uniqueTitle('Task Three');
@@ -20,13 +20,21 @@ test.describe('Tasks - Bulk Actions', () => {
         await expect(taskBoard.userName).toHaveText(user.expectedUser);
 
         await taskBoard.createTask({ title: taskOne });
+        await expect(taskBoard.taskItem(taskOne)).toBeVisible();
+
         await taskBoard.createTask({ title: taskTwo });
+        await expect(taskBoard.taskItem(taskTwo)).toBeVisible();
+
         await taskBoard.createTask({ title: taskThree });
+        await expect(taskBoard.taskItem(taskThree)).toBeVisible();
 
         await taskBoard.markAllCompleted();
 
-    
+        await expect(taskBoard.taskCheckboxes()).toHaveCount(3);
 
+        await expect(taskBoard.taskCheckbox(taskOne)).toBeChecked();
+        await expect(taskBoard.taskCheckbox(taskTwo)).toBeChecked();
+        await expect(taskBoard.taskCheckbox(taskThree)).toBeChecked();
 
     });
 });
