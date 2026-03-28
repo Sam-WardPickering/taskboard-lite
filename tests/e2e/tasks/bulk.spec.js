@@ -61,5 +61,12 @@ test.describe('Tasks - Bulk Actions', () => {
         await taskBoard.createTask({ title: taskThree });
         await expect(taskBoard.taskItem(taskThree)).toBeVisible();
         
+        // Complete taskOne & taskTwo
+        await taskBoard.toggleTask(taskOne);
+        await expect(taskBoard.taskCheckbox(taskOne)).toBeChecked();
+
+        await taskBoard.toggleTask(taskTwo);
+        await expect(taskBoard.taskCheckbox(taskTwo)).toBeChecked();
+
     })
 });
