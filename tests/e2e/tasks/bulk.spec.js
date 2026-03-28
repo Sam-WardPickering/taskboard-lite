@@ -25,11 +25,9 @@ test.describe('Tasks - Bulk Actions', () => {
 
         await taskBoard.markAllCompleted();
 
-        const itemList = await taskBoard.getTaskTitlesInOrder();
-
-        for (const item of itemList) {
-            await expect(item).toBeChecked();
-        }
+        await expect(taskBoard.taskCheckbox(taskOne)).toBeChecked();
+        await expect(taskBoard.taskCheckbox(taskTwo)).toBeChecked();
+        await expect(taskBoard.taskCheckbox(taskThree)).toBeChecked();
 
 
     });
