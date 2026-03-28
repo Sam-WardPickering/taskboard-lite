@@ -7,7 +7,7 @@ import { testUsers } from '../../test-data/users.js';
 const user = testUsers.sam;
 
 test.describe('Tasks - Bulk Actions', () => {
-    test('all tasks are completed when Complete All is pressed', async ({ page }) => {
+    test.only('all tasks are completed when Complete All is pressed', async ({ page }) => {
         const taskOne = uniqueTitle('Task One');
         const taskTwo = uniqueTitle('Task Two');
         const taskThree = uniqueTitle('Task Three');
@@ -24,6 +24,12 @@ test.describe('Tasks - Bulk Actions', () => {
         await taskBoard.createTask({ title: taskThree });
 
         await taskBoard.markAllCompleted();
+
+        const itemList = await taskBoard.getTaskTitlesInOrder();
+
+        for (const item of itemList) {
+            await expect(item).toBeChecked();
+        }
 
 
     });
