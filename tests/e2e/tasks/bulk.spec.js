@@ -39,4 +39,7 @@ test.describe('Tasks - Bulk Actions', () => {
         await expect(taskBoard.taskCheckbox(taskThree)).toBeChecked();
 
     });
+    test('completed tasks are removed when Clear completed is pressed', async ({ page }) => {
+        
+    })
 });
