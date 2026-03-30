@@ -3,7 +3,6 @@ import { gotoApp } from '../../helpers/navigation.js';
 import { loginAs } from '../../helpers/auth.js';
 import { uniqueTitle } from '../../helpers/id.js';
 import { testUsers } from '../../test-data/users.js';
-import { title } from 'node:process';
 
 const user = testUsers.sam;
 
@@ -47,7 +46,7 @@ test.describe('Tasks - Bulk Actions', () => {
 
         await gotoApp(page);
 
-        const { taskBoard} = await loginAs(page, user);
+        const { taskBoard } = await loginAs(page, user);
 
         await expect(taskBoard.card).toBeVisible();
         await expect(taskBoard.userName).toHaveText(user.expectedUser);
@@ -68,5 +67,18 @@ test.describe('Tasks - Bulk Actions', () => {
         await taskBoard.toggleTask(taskTwo);
         await expect(taskBoard.taskCheckbox(taskTwo)).toBeChecked();
 
-    })
+        await expect(taskBoard.taskCheckbox(taskThree)).not.toBeChecked();
+
+        await expect(taskBoard.taskItems()).toHaveCount(3);
+
+        await taskBoard.clearCompleted();
+
+        await expect(taskBoard.taskItems()).toHaveCount(1);
+
+        await expect(taskBoard.taskItem(taskOne)).toHaveCount(0);
+        await expect(taskBoard.taskItem(taskTwo)).toHaveCount(0);
+
+        await expect(taskBoard.taskItem(taskThree)).toBeVisible();
+        await expect(taskBoard.taskCheckbox(taskThree)).not.toBeChecked();
+    });
 });
