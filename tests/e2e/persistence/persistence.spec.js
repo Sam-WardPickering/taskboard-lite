@@ -1,6 +1,9 @@
 import { test, expect } from '../../fixtures/baseTest.js';
 import { uniqueTitle } from '../../helpers/id.js';
 import { todayISO } from '../../helpers/date.js';
+import { testUsers } from '../../test-data/users.js';
+
+const user = testUsers.sam;
 
 test.describe('Persistence', () => {
     test('created task persists after reload', async ({ authenticatedPage: { page, taskBoard } }) => {
