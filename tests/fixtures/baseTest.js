@@ -1,4 +1,7 @@
 import { test as base, expect } from '@playwright/test';
+import { loginAs } from '../helpers/auth.js';
+import { gotoApp } from '../helpers/navigation.js';
+import { testUsers } from '../test-data/users.js';
 
 const STORAGE_KEYS = [
     'tbl_session',
@@ -31,6 +34,14 @@ export const test = base.extend({
         }, { keys: STORAGE_KEYS });
 
         await use(page);
+    },
+
+    authenticatedPage: async ({ page }) => {
+        await gotoApp(page);
+        const { taskBoard } = await loginAs(page, testUsers.sam);
+        await expect(taskBoard.card).toBeVisible();
+        await expect(taskBoard.userName).toHaveText(testUsers.sam.expectedUser);
+        await use({ page, taskBoard });
     },
 });
 
