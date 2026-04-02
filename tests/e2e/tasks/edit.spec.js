@@ -1,26 +1,14 @@
 import { test, expect } from '../../fixtures/baseTest.js';
-import { gotoApp } from '../../helpers/navigation.js';
 import { todayISO } from '../../helpers/date.js';
-import { testUsers } from '../../test-data/users.js';
 import { uniqueTitle } from '../../helpers/id.js';
-import { loginAs } from '../../helpers/auth.js';
-
-const user = testUsers.sam;
 
 test.describe('Tasks - Edit', () => {
-    test('edit a task title (happy path)', async ({ page }) => {
+    test('edit a task title (happy path)', async ({ authenticatedPage: { taskBoard } }) => {
         const title = uniqueTitle('Task - Created');
         const newTitle = uniqueTitle('Task - Edited')
 
         const due = todayISO();
         const priority = 'high';
-
-        await gotoApp(page);
-
-        const { taskBoard } = await loginAs(page, user);
-
-        await expect(taskBoard.card).toBeVisible();
-        await expect(taskBoard.userName).toHaveText(user.expectedUser);
 
         await taskBoard.createTask({ title, due, priority });
         await expect(taskBoard.taskItem(title)).toBeVisible();
@@ -32,19 +20,12 @@ test.describe('Tasks - Edit', () => {
         await expect(taskBoard.taskItem(newTitle)).toBeVisible();
 
     });
-    test('cancel task edits', async ({ page }) => {
+    test('cancel task edits', async ({ authenticatedPage: { taskBoard } }) => {
         const title = uniqueTitle('Task - Created');
         const newTitle = uniqueTitle('Task - Edited');
 
         const due = todayISO();
         const priority = 'med';
-
-        await gotoApp(page);
-
-        const { taskBoard } = await loginAs(page, user);
-
-        await expect(taskBoard.card).toBeVisible();
-        await expect(taskBoard.userName).toHaveText(user.expectedUser);
 
         await taskBoard.createTask({ title, due, priority });
         await expect(taskBoard.taskItem(title)).toBeVisible();
