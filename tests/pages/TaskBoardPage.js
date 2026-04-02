@@ -23,9 +23,13 @@ export class TaskBoardPage {
         this.clearCompletedButton = page.getByTestId('clear-completed');
     }
 
+    // Auth
+
     async logout() {
         await this.logoutButton.click();
     }
+
+    // Task creation
 
     /**
      * @param {{title: string, due?: string, priority?: 'low'|'med'|'high' }} task
@@ -39,18 +43,22 @@ export class TaskBoardPage {
         await this.addTaskButton.click();
     }
 
+    // Task items
+
+    taskItems() {
+        return this.page.getByTestId('todo-item');
+    }
+
     taskItem(title) {
         return this.page.getByTestId('todo-item').filter({ hasText: title });
     }
 
-    async deleteTask(title) {
-        const row = this.taskItem(title);
-        await row.getByTestId('delete').click();
+    taskCheckbox(title) {
+        return this.taskItem(title).getByTestId('todo-item-toggle');
     }
 
-    async toggleTask(title) {
-        const row = this.taskItem(title);
-        await row.getByTestId('todo-item-toggle').click();
+    taskCheckboxes() {
+        return this.page.getByTestId('todo-item-toggle');
     }
 
     taskPriorityBadge(title) {
@@ -61,19 +69,23 @@ export class TaskBoardPage {
         return this.taskItem(title).getByTestId('badge-due');
     }
 
-    taskCheckbox(title) {
-        return this.taskItem(title).getByTestId('todo-item-toggle');
-    }
-
     taskEditButton(title) {
         return this.taskItem(title).getByTestId('edit');
     }
 
-    /** Edit modal functions */
+    // Task actions
 
-    async openEdit(title) {
-        await this.taskEditButton(title).click();
+    async toggleTask(title) {
+        const row = this.taskItem(title);
+        await row.getByTestId('todo-item-toggle').click();
     }
+
+    async deleteTask(title) {
+        const row = this.taskItem(title);
+        await row.getByTestId('delete').click();
+    }
+
+    // Edit modal
 
     editForm() {
         return this.page.getByTestId('edit-form');
@@ -103,6 +115,10 @@ export class TaskBoardPage {
         return this.editForm().getByTestId('edit-cancel');
     }
 
+    async openEdit(title) {
+        await this.taskEditButton(title).click();
+    }
+
     async saveEdit() {
         await this.saveEditButton().click();
     }
@@ -130,7 +146,8 @@ export class TaskBoardPage {
         await this.saveEdit();
     }
 
-    /** Filtering */
+    // Filtering & search
+
     async showAll() {
         await this.showAllButton.click();
     }
@@ -143,13 +160,11 @@ export class TaskBoardPage {
         await this.showCompletedButton.click();
     }
 
-    taskRow(title) {
-        return this.taskItem(title);
-    }
-
     async searchTask(value) {
         await this.searchInput.fill(value);
     }
+
+    // Sorting
 
     async sortByNewest() {
         await this.sortSelect.selectOption('created_desc');
@@ -163,15 +178,11 @@ export class TaskBoardPage {
         await this.sortSelect.selectOption('priority_desc');
     }
 
-    /* Sorting Tasks */
-
-    taskItems() {
-        return this.page.getByTestId('todo-item');
-    }
-
     async getTaskTitlesInOrder() {
         return await this.taskItems().locator('.task-text').allTextContents();
     }
+
+    // Bulk actions
 
     async markAllCompleted() {
         await this.markAllCompleteButton.click();
@@ -179,9 +190,5 @@ export class TaskBoardPage {
 
     async clearCompleted() {
         await this.clearCompletedButton.click();
-    }
-
-    taskCheckboxes() {
-        return this.page.getByTestId('todo-item-toggle');
     }
 }
