@@ -1,23 +1,11 @@
 import { test, expect } from '../../fixtures/baseTest.js';
-import { gotoApp } from '../../helpers/navigation.js';
-import { testUsers } from '../../test-data/users.js';
-import { loginAs } from '../../helpers/auth.js';
 import { uniqueTitle } from '../../helpers/id.js';
 
-const user = testUsers.sam;
-
 test.describe('Tasks - Search', () => { 
-    test('shows matching tasks when searching by title', async ({ page }) => {
+    test('shows matching tasks when searching by title', async ({ authenticatedPage: { taskBoard } }) => {
         const task1 = uniqueTitle('Task One');
         const task2 = uniqueTitle('Task Two');
         
-        await gotoApp(page);
-
-        const { taskBoard } = await loginAs(page, user);
-
-        await expect(taskBoard.card).toBeVisible();
-        await expect(taskBoard.userName).toHaveText(user.expectedUser);
-
         await taskBoard.createTask({ title: task1 });
         await expect(taskBoard.taskItem(task1)).toBeVisible();
 
@@ -42,16 +30,9 @@ test.describe('Tasks - Search', () => {
         await expect(taskBoard.taskItem(task1)).toBeVisible();
         await expect(taskBoard.taskItem(task2)).toBeVisible();
     });
-    test('shows empty state when no tasks match the search', async ({ page }) => {
+    test('shows empty state when no tasks match the search', async ({ authenticatedPage: { taskBoard } }) => {
         const task1 = uniqueTitle('Task One');
         const task2 = uniqueTitle('Task Two');
-
-        await gotoApp(page);
-
-        const { taskBoard } = await loginAs(page, user);
-
-        await expect(taskBoard.card).toBeVisible();
-        await expect(taskBoard.userName).toHaveText(user.expectedUser);
 
         await taskBoard.createTask({ title: task1 });
         await expect(taskBoard.taskItem(task1)).toBeVisible();
