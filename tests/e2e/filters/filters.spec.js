@@ -1,22 +1,10 @@
 import { test, expect } from '../../fixtures/baseTest.js';
-import { gotoApp } from '../../helpers/navigation.js';
-import { testUsers } from '../../test-data/users.js';
 import { uniqueTitle } from '../../helpers/id.js';
-import { loginAs } from '../../helpers/auth.js';
-
-const user = testUsers.sam;
 
 test.describe('Tasks - Filters', () => {
-    test('shows only active tasks when Active filter is selected', async ({ page }) => {
+    test('shows only active tasks when Active filter is selected', async ({ authenticatedPage: { taskBoard } }) => {
         const taskActive = uniqueTitle('Task Active');
         const taskCompleted = uniqueTitle('Task Completed');
-
-        await gotoApp(page);
-
-        const { taskBoard } = await loginAs(page, user); 
-
-        await expect(taskBoard.card).toBeVisible();
-        await expect(taskBoard.userName).toHaveText(user.expectedUser);
 
         // Assert initial filter state
         await expect(taskBoard.showAllButton).toContainClass('is-active');
@@ -39,16 +27,9 @@ test.describe('Tasks - Filters', () => {
         await expect(taskBoard.taskItem(taskCompleted)).toHaveCount(0);
 
     });
-    test('shows only completed tasks when Completed filter is selected', async ({ page }) => {
+    test('shows only completed tasks when Completed filter is selected', async ({ authenticatedPage: { taskBoard } }) => {
         const taskActive = uniqueTitle('Task Active');
         const taskCompleted = uniqueTitle('Task Completed');
-
-        await gotoApp(page);
-
-        const { taskBoard } = await loginAs(page, user);
-        
-        await expect(taskBoard.card).toBeVisible();
-        await expect(taskBoard.userName).toHaveText(user.expectedUser);
 
         await taskBoard.createTask({ title: taskActive });
         await expect(taskBoard.taskItem(taskActive)).toBeVisible();
