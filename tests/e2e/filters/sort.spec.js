@@ -1,23 +1,11 @@
 import { test, expect } from '../../fixtures/baseTest.js';
-import { gotoApp } from '../../helpers/navigation.js';
-import { loginAs } from '../../helpers/auth.js';
 import { uniqueTitle } from '../../helpers/id.js';
-import { testUsers } from '../../test-data/users.js';
-
-const user = testUsers.sam;
 
 test.describe('Tasks - Sort', () => {
-    test('shows newest tasks first when sorted by Newest', async ({ page }) => {
+    test('shows newest tasks first when sorted by Newest', async ({ authenticatedPage: { taskBoard } }) => {
         const firstTask = uniqueTitle('First Task');
         const secondTask = uniqueTitle('Second Task');
         const thirdTask = uniqueTitle('Third Task');
-
-        await gotoApp(page);
-
-        const { taskBoard } = await loginAs(page, user);
-
-        await expect(taskBoard.card).toBeVisible();
-        await expect(taskBoard.userName).toHaveText(user.expectedUser);
 
         await taskBoard.createTask({ title: firstTask });
         await expect(taskBoard.taskItem(firstTask)).toBeVisible();
@@ -36,17 +24,10 @@ test.describe('Tasks - Sort', () => {
         expect(itemList).toEqual([thirdTask, secondTask, firstTask]);
 
     });
-    test('shows tasks ordered by due date when sorted by Due Date', async ({ page }) => {
+    test('shows tasks ordered by due date when sorted by Due Date', async ({ authenticatedPage: { taskBoard } }) => {
         const dueFirst = uniqueTitle('This is due first');
         const dueSecond = uniqueTitle('This is due second');
         const dueLast = uniqueTitle('This is due last');
-        
-        await gotoApp(page);
-
-        const { taskBoard } = await loginAs(page, user);
-
-        await expect(taskBoard.card).toBeVisible();
-        await expect(taskBoard.userName).toHaveText(user.expectedUser);
 
         await taskBoard.createTask({ title: dueFirst, due: '2026-03-01' });
         await expect(taskBoard.taskItem(dueFirst)).toBeVisible();
@@ -64,17 +45,10 @@ test.describe('Tasks - Sort', () => {
         const itemList = await taskBoard.getTaskTitlesInOrder();
         expect(itemList).toEqual([dueFirst, dueSecond, dueLast]);
     });
-    test('shows tasks ordered by priority when sorted by Priority', async ({ page }) => {
+    test('shows tasks ordered by priority when sorted by Priority', async ({ authenticatedPage: { taskBoard } }) => {
         const priorityLow = uniqueTitle('Low Priority');
         const priorityMed = uniqueTitle('Medium Priority');
         const priorityHigh = uniqueTitle('High Priority');
-
-        await gotoApp(page);
-
-        const { taskBoard } = await loginAs(page, user);
-
-        await expect(taskBoard.card).toBeVisible();
-        await expect(taskBoard.userName).toHaveText(user.expectedUser);
 
         await taskBoard.createTask({ title: priorityLow, priority: 'low' });
         await expect(taskBoard.taskItem(priorityLow)).toBeVisible();
