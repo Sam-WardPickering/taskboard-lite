@@ -1,24 +1,12 @@
 import { test, expect } from '../../fixtures/baseTest.js';
-import { gotoApp } from '../../helpers/navigation.js';
-import { testUsers } from '../../test-data/users.js';
 import { uniqueTitle } from '../../helpers/id.js';
 import { todayISO } from '../../helpers/date.js';
-import { loginAs } from '../../helpers/auth.js';
-
-const user = testUsers.sam;
 
 test.describe('Persistence', () => {
-    test('created task persists after reload', async ({ page }) => {
+    test('created task persists after reload', async ({ authenticatedPage: { taskBoard } }) => {
         const title = uniqueTitle();
         const due = todayISO();
         const priority = 'med';
-
-        await gotoApp(page);
-
-        const { taskBoard } = await loginAs(page, user);
-
-        await expect(taskBoard.card).toBeVisible();
-        await expect(taskBoard.userName).toHaveText(user.expectedUser);
 
         await taskBoard.createTask({ title, due, priority });
 
@@ -35,7 +23,7 @@ test.describe('Persistence', () => {
         await expect(taskBoard.taskPriorityBadge(title)).toHaveText(priority);
     });
 
-    test('edited task persists after reload', async ({ page }) => {
+    test('edited task persists after reload', async ({ authenticatedPage: { taskBoard } }) => {
         const title = uniqueTitle('Task - Created');
         const newTitle = uniqueTitle('Task - Edited');
 
@@ -44,13 +32,6 @@ test.describe('Persistence', () => {
 
         const priority = 'low';
         const newPriority = 'high';
-
-        await gotoApp(page);
-
-        const { taskBoard } = await loginAs(page, user);
-        
-        await expect(taskBoard.card).toBeVisible();
-        await expect(taskBoard.userName).toHaveText(user.expectedUser);
 
         await taskBoard.createTask({ title, due, priority });
         await expect(taskBoard.taskItem(title)).toBeVisible();
@@ -90,17 +71,10 @@ test.describe('Persistence', () => {
         await expect(taskBoard.editForm()).not.toBeVisible();
     });
 
-    test('completed task persists after reload', async ({ page }) => {
+    test('completed task persists after reload', async ({ authenticatedPage: { taskBoard } }) => {
         const title = uniqueTitle();
         const due = todayISO();
         const priority = 'med';
-
-        await gotoApp(page);
-
-        const { taskBoard } = await loginAs(page, user);
-
-        await expect(taskBoard.card).toBeVisible();
-        await expect(taskBoard.userName).toHaveText(user.expectedUser);
 
         await taskBoard.createTask({ title, due, priority });
 
@@ -119,17 +93,10 @@ test.describe('Persistence', () => {
         await expect(taskBoard.taskCheckbox(title)).toBeChecked();
     });
 
-    test('deleted task remains deleted after reload', async ({ page }) => {
+    test('deleted task remains deleted after reload', async ({ authenticatedPage: { taskBoard } }) => {
         const title = uniqueTitle();
         const due = todayISO();
         const priority = 'med';
-
-        await gotoApp(page);
-
-        const { taskBoard } = await loginAs(page, user);
-
-        await expect(taskBoard.card).toBeVisible();
-        await expect(taskBoard.userName).toHaveText(user.expectedUser);
 
         await taskBoard.createTask({ title, due, priority });
 
