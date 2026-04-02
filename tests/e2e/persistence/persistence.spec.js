@@ -3,7 +3,7 @@ import { uniqueTitle } from '../../helpers/id.js';
 import { todayISO } from '../../helpers/date.js';
 
 test.describe('Persistence', () => {
-    test('created task persists after reload', async ({ authenticatedPage: { taskBoard } }) => {
+    test('created task persists after reload', async ({ authenticatedPage: { page, taskBoard } }) => {
         const title = uniqueTitle();
         const due = todayISO();
         const priority = 'med';
@@ -23,7 +23,7 @@ test.describe('Persistence', () => {
         await expect(taskBoard.taskPriorityBadge(title)).toHaveText(priority);
     });
 
-    test('edited task persists after reload', async ({ authenticatedPage: { taskBoard } }) => {
+    test('edited task persists after reload', async ({ authenticatedPage: { page, taskBoard } }) => {
         const title = uniqueTitle('Task - Created');
         const newTitle = uniqueTitle('Task - Edited');
 
@@ -71,7 +71,7 @@ test.describe('Persistence', () => {
         await expect(taskBoard.editForm()).not.toBeVisible();
     });
 
-    test('completed task persists after reload', async ({ authenticatedPage: { taskBoard } }) => {
+    test('completed task persists after reload', async ({ authenticatedPage: { page, taskBoard } }) => {
         const title = uniqueTitle();
         const due = todayISO();
         const priority = 'med';
@@ -93,7 +93,7 @@ test.describe('Persistence', () => {
         await expect(taskBoard.taskCheckbox(title)).toBeChecked();
     });
 
-    test('deleted task remains deleted after reload', async ({ authenticatedPage: { taskBoard } }) => {
+    test('deleted task remains deleted after reload', async ({ authenticatedPage: { page, taskBoard } }) => {
         const title = uniqueTitle();
         const due = todayISO();
         const priority = 'med';
