@@ -36,7 +36,7 @@ export const test = base.extend({
         await use(page);
     },
 
-    authenticatedPage: async ({ page }) => {
+    authenticatedPage: async ({ page }, use) => {
         await gotoApp(page);
         const { taskBoard } = await loginAs(page, testUsers.sam);
         await expect(taskBoard.card).toBeVisible();
