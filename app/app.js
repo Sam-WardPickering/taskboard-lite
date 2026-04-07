@@ -279,7 +279,7 @@ function renderList() {
     li.innerHTML = `
       <label class="title">
         <input data-testid="todo-item-toggle" type="checkbox" ${t.completed ? 'checked' : ''} />
-        <span class="task-text">${escapeHtml(t.title)}</span>
+        <span class="task-text" data-testid="task-title">${escapeHtml(t.title)}</span>
       </label>
       <div class="badges">
         <span class="badge ${t.priority} ${t.priority === 'high' ? 'high' : t.priority === 'low' ? 'low' : ''}" data-testid="badge-priority">${t.priority}</span>
