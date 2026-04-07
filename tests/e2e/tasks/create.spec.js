@@ -17,4 +17,10 @@ test.describe('Tasks - Create', () => {
         await expect(taskBoard.taskDueBadge(title)).toHaveText(`due ${due}`);
         await expect(taskBoard.taskPriorityBadge(title)).toHaveText(priority);
     });
+    test('shows validation error when submitting without a title', async ({ authenticatedPage: { taskBoard } }) => {
+        await taskBoard.createTask({ title: "" });
+
+        await expect(taskBoard.createErrorSpan).toBeVisible();
+    })
+   
 });

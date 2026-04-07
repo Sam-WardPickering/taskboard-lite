@@ -29,6 +29,7 @@ export class TaskBoardPage {
         this.editCompletedCheckbox = this.editForm.getByTestId('edit-completed');
         this.saveEditButton = this.editForm.getByTestId('edit-save');
         this.cancelEditButton = this.editForm.getByTestId('edit-cancel');
+        this.createErrorSpan = page.getByTestId('create-error');
     }
 
     toast() {
