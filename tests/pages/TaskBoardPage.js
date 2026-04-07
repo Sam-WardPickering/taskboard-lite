@@ -158,7 +158,7 @@ export class TaskBoardPage {
     }
 
     async getTaskTitlesInOrder() {
-        return await this.taskItems().locator('.task-text').allTextContents();
+        return await this.taskItems().getByTestId('task-title').allTextContents();
     }
 
     // Bulk actions
