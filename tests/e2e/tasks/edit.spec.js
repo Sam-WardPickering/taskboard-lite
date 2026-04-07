@@ -15,7 +15,7 @@ test.describe('Tasks - Edit', () => {
 
         await taskBoard.editTask(title, { title: newTitle });
 
-        await expect(taskBoard.editForm()).not.toBeVisible();
+        await expect(taskBoard.editForm).not.toBeVisible();
         await expect(taskBoard.taskItem(title)).toHaveCount(0);
         await expect(taskBoard.taskItem(newTitle)).toBeVisible();
 
@@ -33,15 +33,15 @@ test.describe('Tasks - Edit', () => {
         await taskBoard.openEdit(title);
 
         // Open edit modal & change title
-        await expect(taskBoard.editForm()).toBeVisible();
-        await taskBoard.editTitleInput().fill(newTitle);
+        await expect(taskBoard.editForm).toBeVisible();
+        await taskBoard.editTitleInput.fill(newTitle);
 
         // Confirm edit input was updated
-        await expect(taskBoard.editTitleInput()).toHaveValue(newTitle);
+        await expect(taskBoard.editTitleInput).toHaveValue(newTitle);
 
         await taskBoard.cancelEdit();
 
-        await expect(taskBoard.editForm()).not.toBeVisible();
+        await expect(taskBoard.editForm).not.toBeVisible();
         await expect(taskBoard.taskItem(newTitle)).toHaveCount(0);
         await expect(taskBoard.taskItem(title)).toBeVisible();
 
