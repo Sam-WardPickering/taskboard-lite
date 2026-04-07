@@ -21,6 +21,13 @@ export class TaskBoardPage {
         this.sortSelect = page.getByTestId('sort');
         this.markAllCompleteButton = page.getByTestId('bulk-complete');
         this.clearCompletedButton = page.getByTestId('clear-completed');
+        this.editForm = page.getByTestId('edit-form');
+        this.editTitleInput = this.editForm.getByTestId('edit-title');
+        this.editDueDateInput = this.editForm.getByTestId('edit-due');
+        this.editPrioritySelect = this.editForm.getByTestId('edit-priority');
+        this.editCompletedCheckbox = this.editForm.getByTestId('edit-completed');
+        this.saveEditButton = this.editForm.getByTestId('edit-save');
+        this.cancelEditButton = this.editForm.getByTestId('edit-cancel');
     }
 
     // Auth
@@ -87,44 +94,16 @@ export class TaskBoardPage {
 
     // Edit modal
 
-    editForm() {
-        return this.page.getByTestId('edit-form');
-    }
-
-    editTitleInput() {
-        return this.editForm().getByTestId('edit-title');
-    }
-
-    editDueDateInput() {
-        return this.editForm().getByTestId('edit-due');
-    }
-
-    editPrioritySelect() {
-        return this.editForm().getByTestId('edit-priority');
-    }
-
-    editCompletedCheckbox() {
-        return this.editForm().getByTestId('edit-completed');
-    }
-
-    saveEditButton() {
-        return this.editForm().getByTestId('edit-save');
-    }
-
-    cancelEditButton() {
-        return this.editForm().getByTestId('edit-cancel');
-    }
-
     async openEdit(title) {
         await this.taskEditButton(title).click();
     }
 
     async saveEdit() {
-        await this.saveEditButton().click();
+        await this.saveEditButton.click();
     }
 
     async cancelEdit() {
-        await this.cancelEditButton().click();
+        await this.cancelEditButton.click();
     }
 
     /**
@@ -139,7 +118,7 @@ export class TaskBoardPage {
         if (updates.priority !== undefined) await this.editPrioritySelect().selectOption(updates.priority);
 
         if (typeof updates.completed === 'boolean') {
-            const checkbox = this.editCompletedCheckbox();
+            const checkbox = this.editCompletedCheckbox;
             await (updates.completed ? checkbox.check() : checkbox.uncheck());
         }
 

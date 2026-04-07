@@ -63,15 +63,15 @@ test.describe('Persistence', () => {
         await expect(taskBoard.taskItem(title)).toHaveCount(0);
 
         await taskBoard.openEdit(newTitle);
-        await expect(taskBoard.editForm()).toBeVisible();
+        await expect(taskBoard.editForm).toBeVisible();
 
-        await expect(taskBoard.editTitleInput()).toHaveValue(newTitle);
-        await expect(taskBoard.editDueDateInput()).toHaveValue(newDue);
-        await expect(taskBoard.editPrioritySelect()).toHaveValue(newPriority);
-        await expect(taskBoard.editCompletedCheckbox()).toBeChecked();
+        await expect(taskBoard.editTitleInput).toHaveValue(newTitle);
+        await expect(taskBoard.editDueDateInput).toHaveValue(newDue);
+        await expect(taskBoard.editPrioritySelect).toHaveValue(newPriority);
+        await expect(taskBoard.editCompletedCheckbox).toBeChecked();
 
         await taskBoard.cancelEdit();
-        await expect(taskBoard.editForm()).not.toBeVisible();
+        await expect(taskBoard.editForm).not.toBeVisible();
     });
 
     test('completed task persists after reload', async ({ authenticatedPage: { page, taskBoard } }) => {
