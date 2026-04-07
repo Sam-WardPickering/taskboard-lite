@@ -14,6 +14,8 @@ test.describe('Tasks - Complete', () => {
 
         // Complete task
         await taskBoard.toggleTask(title);
+        await expect(taskBoard.toast()).toBeVisible();
+        await expect(taskBoard.toast()).toContainText('Marked complete');
         await expect(taskBoard.taskCheckbox(title)).toBeChecked();
 
         // Undo completion

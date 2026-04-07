@@ -15,6 +15,9 @@ test.describe('Tasks - Edit', () => {
 
         await taskBoard.editTask(title, { title: newTitle });
 
+        await expect(taskBoard.toast()).toBeVisible();
+        await expect(taskBoard.toast()).toContainText(newTitle);
+
         await expect(taskBoard.editForm).not.toBeVisible();
         await expect(taskBoard.taskItem(title)).toHaveCount(0);
         await expect(taskBoard.taskItem(newTitle)).toBeVisible();

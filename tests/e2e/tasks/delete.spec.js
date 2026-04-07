@@ -14,6 +14,9 @@ test.describe('Tasks - Delete', () => {
 
         await taskBoard.deleteTask(title);
 
+        await expect(taskBoard.toast()).toBeVisible();
+        await expect(taskBoard.toast()).toContainText(title);
+
         await expect(taskBoard.taskItem(title)).toHaveCount(0);
     });
 });

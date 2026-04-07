@@ -20,6 +20,9 @@ test.describe('Tasks - Bulk Actions', () => {
 
         await taskBoard.markAllCompleted();
 
+        await expect(taskBoard.toast()).toBeVisible();
+        await expect(taskBoard.toast()).toContainText('Marked all tasks complete');
+
         await expect(taskBoard.taskCheckboxes()).toHaveCount(3);
 
         await expect(taskBoard.taskCheckbox(taskOne)).toBeChecked();
@@ -53,6 +56,9 @@ test.describe('Tasks - Bulk Actions', () => {
         await expect(taskBoard.taskItems()).toHaveCount(3);
 
         await taskBoard.clearCompleted();
+
+        await expect(taskBoard.toast()).toBeVisible();
+        await expect(taskBoard.toast()).toContainText('removed');
 
         await expect(taskBoard.taskItems()).toHaveCount(1);
 

@@ -10,6 +10,9 @@ test.describe('Tasks - Create', () => {
 
         await taskBoard.createTask({ title, due, priority });
 
+        await expect(taskBoard.toast()).toBeVisible();
+        await expect(taskBoard.toast()).toContainText(title);
+
         await expect(taskBoard.taskItem(title)).toBeVisible();
         await expect(taskBoard.taskDueBadge(title)).toHaveText(`due ${due}`);
         await expect(taskBoard.taskPriorityBadge(title)).toHaveText(priority);

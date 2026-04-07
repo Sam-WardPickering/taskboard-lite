@@ -21,6 +21,7 @@ export class TaskBoardPage {
         this.sortSelect = page.getByTestId('sort');
         this.markAllCompleteButton = page.getByTestId('bulk-complete');
         this.clearCompletedButton = page.getByTestId('clear-completed');
+        this.toasts = page.getByTestId('toasts');
         this.editForm = page.getByTestId('edit-form');
         this.editTitleInput = this.editForm.getByTestId('edit-title');
         this.editDueDateInput = this.editForm.getByTestId('edit-due');
@@ -28,6 +29,10 @@ export class TaskBoardPage {
         this.editCompletedCheckbox = this.editForm.getByTestId('edit-completed');
         this.saveEditButton = this.editForm.getByTestId('edit-save');
         this.cancelEditButton = this.editForm.getByTestId('edit-cancel');
+    }
+
+    toast() {
+        return this.toasts.locator('.toast').last();
     }
 
     // Auth
