@@ -1,6 +1,6 @@
 import { test, expect } from '../../fixtures/baseTest.js';
 import { gotoApp } from '../../helpers/navigation.js';
-import { AppShell } from '../../pages/AppShell.js';
+import { AppShell } from '../../pages/index.js';
 import { loginAs } from '../../helpers/auth.js';
 import { testUsers } from '../../test-data/users.js';
 

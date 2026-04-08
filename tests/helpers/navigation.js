@@ -1,5 +1,3 @@
-import { expect } from '../fixtures/baseTest.js';
-
 /**
  * Navigate to the app root and wait for initial loading to settle.
  * @param {import('@playwright/test').Page} page
