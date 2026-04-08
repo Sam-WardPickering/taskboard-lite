@@ -98,6 +98,11 @@ export class TaskBoardPage {
         await row.getByTestId('delete').click();
     }
 
+    async dragAndDropTask(title, replacedTitle) {
+        const row = this.taskItem(title);
+        await row.dragTo(this.taskItem(replacedTitle));
+    }
+
     // Edit modal
 
     async openEdit(title) {
