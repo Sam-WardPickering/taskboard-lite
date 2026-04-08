@@ -6,13 +6,5 @@ import { expect } from '../fixtures/baseTest.js';
  */
 export async function gotoApp(page) {
     await page.goto('/');
-
-    // App spinner uses data-testid="loading"
-    const spinner = page.getByTestId('loading');
-
-    // Only wait if it appears; avoid strict dependency on spinner always existing.
-    if (await spinner.isVisible().catch(() => false)) {
-        await expect(spinner).toBeHidden();
-    };
-
+    await page.getByTestId('loading').waitFor({ state: 'hidden', timeout: 5000 });
 };
