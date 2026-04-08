@@ -7,6 +7,11 @@
     "test": "playwright test",
     "test:ui": "playwright test --ui",
     "test:headed": "playwright test --headed",
+    "test:smoke": "playwright test tests/e2e/smoke/",
+    "test:auth": "playwright test tests/e2e/auth/",
+    "test:tasks": "playwright test tests/e2e/tasks/",
+    "test:filters": "playwright test tests/e2e/filters/",
+    "test:chromium": "playwright test --project=chromium",
     "report": "playwright show-report"
   },
   "keywords": [],
