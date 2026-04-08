@@ -2,7 +2,7 @@ import { test, expect } from '../../fixtures/baseTest.js';
 import { uniqueTitle } from '../../helpers/id.js';
 
 test.describe('Tasks - Reorder', () => {
-    test.only('task order updates after drag and drop', async ({ authenticatedPage: { taskBoard } }) => {
+    test('task order updates after drag and drop', async ({ authenticatedPage: { taskBoard } }) => {
         const firstTask = uniqueTitle('First Task');
         const secondTask = uniqueTitle('Second Task');
         const thirdTask = uniqueTitle('Third Task');
