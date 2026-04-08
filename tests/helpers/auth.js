@@ -1,5 +1,4 @@
-import { LoginPage } from "../pages/LoginPage.js";
-import { TaskBoardPage } from "../pages/TaskBoardPage.js";
+import { LoginPage, TaskBoardPage } from "../pages/index.js";
 
 export async function loginAs(page, user) {
     const login = new LoginPage(page);
